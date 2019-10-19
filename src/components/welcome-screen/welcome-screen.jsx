@@ -1,12 +1,12 @@
 import React from 'react';
-import {number} from 'prop-types';
+import {number, func} from 'prop-types';
 
-const WelcomeScreen = ({minutes, mistakesNumber}) => (
+const WelcomeScreen = ({minutes, mistakesNumber, startGameHundler}) => (
   <section className="welcome">
     <div className="welcome__logo">
       <img src="img/melody-logo.png" alt="Угадай мелодию" width="186" height="83" />
     </div>
-    <button className="welcome__button">
+    <button className="welcome__button" onClick={startGameHundler}>
       <span className="visually-hidden">Начать игру</span>
     </button>
     <h2 className="welcome__rules-title">Правила игры</h2>
@@ -22,6 +22,11 @@ const WelcomeScreen = ({minutes, mistakesNumber}) => (
 WelcomeScreen.propTypes = {
   minutes: number.isRequired,
   mistakesNumber: number.isRequired,
+  startGameHundler: func,
+};
+
+WelcomeScreen.defaultProps = {
+  startGameHundler: () => null,
 };
 
 export default WelcomeScreen;
