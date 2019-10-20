@@ -1,12 +1,9 @@
 import React from 'react';
-import Emzyme, {shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import {shallow} from 'enzyme';
 
 import WelcomeScreen from './welcome-screen.jsx';
 
-Emzyme.configure({adapter: new Adapter()});
-
-it(`WelcomeScreen renders correctly`, () => {
+it(`startGameHundler have been called 1 time`, () => {
   const startGameHundler = jest.fn();
   const wrapper = shallow(
       <WelcomeScreen
