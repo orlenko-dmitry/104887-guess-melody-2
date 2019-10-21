@@ -3,17 +3,17 @@ import {shallow} from 'enzyme';
 
 import WelcomeScreen from './welcome-screen.jsx';
 
-it(`startGameHundler have been called 1 time`, () => {
-  const startGameHundler = jest.fn();
+it(`startGameHandler have been called 1 time`, () => {
+  const startGameHandler = jest.fn();
   const wrapper = shallow(
       <WelcomeScreen
         minutes={0}
         mistakesNumber={0}
-        startGameHundler={startGameHundler}
+        startGameHandler={startGameHandler}
       />
   );
 
   const startButton = wrapper.find(`button`);
   startButton.simulate(`click`);
-  expect(startGameHundler).toHaveBeenCalledTimes(1);
+  expect(startGameHandler).toHaveBeenCalledTimes(1);
 });
