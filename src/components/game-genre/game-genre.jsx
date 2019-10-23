@@ -1,8 +1,8 @@
 import React from 'react';
 import {arrayOf, shape, string} from 'prop-types';
 
-const GameArtist = ({song: {src}, answers}) => (
-  <section className="game game--artist">
+const GameGenre = ({answers}) => (
+  <section className="game game--genre">
     <header className="game__header">
       <a className="game__back" href="#">
         <span className="visually-hidden">Сыграть ещё раз</span>
@@ -33,40 +33,31 @@ const GameArtist = ({song: {src}, answers}) => (
     </header>
 
     <section className="game__screen">
-      <h2 className="game__title">Кто исполняет эту песню?</h2>
-      <div className="game__track">
-        <div className="track">
-          <button className="track__button track__button--play" type="button"></button>
-          <div className="track__status">
-            <audio src={src}></audio>
-          </div>
-        </div>
-      </div>
-
-      <form className="game__artist">
-        {answers.map(({picture, artist}, index) => (
-          <div className="artist" key={`${artist}-${index}`}>
-            <input className="artist__input visually-hidden" type="radio" name="answer" value="artist-1" id="answer-1" />
-            <label className="artist__name" htmlFor="answer-1">
-              <img className="artist__picture" src={picture} alt="Пелагея" />
-              {artist}
-            </label>
+      <h2 className="game__title">Выберите инди-рок треки</h2>
+      <form className="game__tracks">
+        {answers.map(({genre, src}, index) => (
+          <div className="track" key={`${genre}-${index}`}>
+            <button className="track__button track__button--play" type="button"></button>
+            <div className="track__status">
+              <audio src={src}></audio>
+            </div>
+            <div className="game__answer">
+              <input className="game__input visually-hidden" type="checkbox" name="answer" value="answer-1" id="answer-1" />
+              <label className="game__check" htmlFor="answer-1">Отметить</label>
+            </div>
           </div>
         ))}
+        <button className="game__submit button" type="submit">Ответить</button>
       </form>
     </section>
   </section>
 );
 
-GameArtist.propTypes = {
-  song: shape({
-    artist: string,
-    src: string,
-  }).isRequired,
+GameGenre.propTypes = {
   answers: arrayOf(shape({
-    picture: string,
-    artist: string,
-  })),
+    src: string,
+    genre: string,
+  })).isRequired,
 };
 
-export default GameArtist;
+export default GameGenre;
