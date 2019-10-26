@@ -1,7 +1,7 @@
 import React from 'react';
 import {arrayOf, shape, string} from 'prop-types';
 
-const GameGenre = ({answers}) => (
+const GameGenre = ({gameData: {answers}}) => (
   <section className="game game--genre">
     <header className="game__header">
       <a className="game__back" href="#">
@@ -54,10 +54,14 @@ const GameGenre = ({answers}) => (
 );
 
 GameGenre.propTypes = {
-  answers: arrayOf(shape({
-    src: string,
+  gameData: shape({
+    type: string,
     genre: string,
-  })).isRequired,
+    answers: arrayOf(shape({
+      src: string,
+      genre: string,
+    }))
+  }).isRequired,
 };
 
 export default GameGenre;

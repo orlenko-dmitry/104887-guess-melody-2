@@ -1,14 +1,63 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {arrayOf, shape, number} from 'prop-types';
+import {
+  If,
+  Then,
+  Else,
+  Switch,
+  Case,
+  Default,
+} from 'react-if';
+
 import WelcomeScreen from '../welcome-screen/welcome-screen.jsx';
+import GameArtist from '../game-artist/game-artist.jsx';
+import GameGenre from '../game-genre/game-genre.jsx';
 
-const minutes = 7;
-const mistakesNumber = 4;
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentQuestion: 1,
+    };
+  }
+  render() {
+    const {gameSettings: {gameTime, maxMistakes}, questions} = this.props;
+    const {currentQuestion} = this.state;
+    const gameArtisDataIndex = questions.map((question) => question.type).indexOf(`artist`);
+    const gameGenreDataIndex = questions.map((question) => question.type).indexOf(`genre`);
 
-const App = () => (
-  <WelcomeScreen
-    minutes={minutes}
-    mistakesNumber={mistakesNumber}
-  />
-);
+    return (
+      <If condition={currentQuestion === -1}>
+        <Then>
+          <WelcomeScreen
+            minutes={gameTime}
+            mistakesNumber={maxMistakes}
+          />
+        </Then>
+        <Else>
+          <Switch>
+            <Case condition={questions[currentQuestion] && questions[currentQuestion].type === `artist`}>
+              <GameArtist gameData={questions[gameArtisDataIndex]} />
+            </Case>
+            <Case condition={questions[currentQuestion] && questions[currentQuestion].type === `genre`}>
+              <GameGenre gameData={questions[gameGenreDataIndex]} />
+            </Case>
+            <Default>
+              {null}
+            </Default>
+          </Switch>
+        </Else>
+      </If>
+    );
+  }
+}
+
+App.propTypes = {
+  questions: arrayOf(shape({})).isRequired,
+  gameSettings: shape({
+    gameTime: number,
+    maxMistakes: number,
+  }).isRequired,
+};
 
 export default App;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {arrayOf, shape, string} from 'prop-types';
 
-const GameArtist = ({song: {src}, answers}) => (
+const GameArtist = ({gameData: {song: {src}, answers}}) => (
   <section className="game game--artist">
     <header className="game__header">
       <a className="game__back" href="#">
@@ -59,14 +59,17 @@ const GameArtist = ({song: {src}, answers}) => (
 );
 
 GameArtist.propTypes = {
-  song: shape({
-    artist: string,
-    src: string,
+  gameData: shape({
+    type: string,
+    song: shape({
+      artist: string,
+      src: string,
+    }),
+    answers: arrayOf(shape({
+      picture: string,
+      src: string,
+    }))
   }).isRequired,
-  answers: arrayOf(shape({
-    picture: string,
-    artist: string,
-  })),
 };
 
 export default GameArtist;
