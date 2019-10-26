@@ -1,7 +1,15 @@
 import React from 'react';
-import {arrayOf, shape, string} from 'prop-types';
+import {
+  arrayOf,
+  shape,
+  string,
+  func,
+} from 'prop-types';
 
-const GameGenre = ({gameData: {answers}}) => (
+const GameGenre = ({
+  gameData: {answers},
+  onNextScreenClick,
+}) => (
   <section className="game game--genre">
     <header className="game__header">
       <a className="game__back" href="#">
@@ -47,7 +55,13 @@ const GameGenre = ({gameData: {answers}}) => (
             </div>
           </div>
         ))}
-        <button className="game__submit button" type="submit">Ответить</button>
+        <button
+          className="game__submit button"
+          type="submit"
+          onClick={onNextScreenClick}
+        >
+            Ответить
+        </button>
       </form>
     </section>
   </section>
@@ -62,6 +76,7 @@ GameGenre.propTypes = {
       genre: string,
     }))
   }).isRequired,
+  onNextScreenClick: func.isRequired,
 };
 
 export default GameGenre;

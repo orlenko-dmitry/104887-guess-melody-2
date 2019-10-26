@@ -17,9 +17,22 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentQuestion: 1,
+      currentQuestion: -1,
     };
+    this.nextScreenHandler = this.nextScreenHandler.bind(this);
   }
+
+  nextScreenHandler() {
+    const {questions} = this.props;
+    const {currentQuestion} = this.state;
+
+    if (currentQuestion === questions.length - 1) {
+      this.setState({currentQuestion: -1});
+    } else {
+      this.setState((prevState) => ({currentQuestion: prevState.currentQuestion + 1}));
+    }
+  }
+
   render() {
     const {gameSettings: {gameTime, maxMistakes}, questions} = this.props;
     const {currentQuestion} = this.state;
@@ -32,15 +45,16 @@ class App extends Component {
           <WelcomeScreen
             minutes={gameTime}
             mistakesNumber={maxMistakes}
+            onNextScreenClick={this.nextScreenHandler}
           />
         </Then>
         <Else>
           <Switch>
             <Case condition={questions[currentQuestion] && questions[currentQuestion].type === `artist`}>
-              <GameArtist gameData={questions[gameArtisDataIndex]} />
+              <GameArtist gameData={questions[gameArtisDataIndex]} onNextScreenClick={this.nextScreenHandler} />
             </Case>
             <Case condition={questions[currentQuestion] && questions[currentQuestion].type === `genre`}>
-              <GameGenre gameData={questions[gameGenreDataIndex]} />
+              <GameGenre gameData={questions[gameGenreDataIndex]} onNextScreenClick={this.nextScreenHandler} />
             </Case>
             <Default>
               {null}

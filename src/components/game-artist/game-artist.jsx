@@ -1,7 +1,18 @@
 import React from 'react';
-import {arrayOf, shape, string} from 'prop-types';
+import {
+  arrayOf,
+  shape,
+  string,
+  func,
+} from 'prop-types';
 
-const GameArtist = ({gameData: {song: {src}, answers}}) => (
+const GameArtist = ({
+  gameData: {
+    song: {src},
+    answers,
+  },
+  onNextScreenClick,
+}) => (
   <section className="game game--artist">
     <header className="game__header">
       <a className="game__back" href="#">
@@ -46,7 +57,13 @@ const GameArtist = ({gameData: {song: {src}, answers}}) => (
       <form className="game__artist">
         {answers.map(({picture, artist}, index) => (
           <div className="artist" key={`${artist}-${index}`}>
-            <input className="artist__input visually-hidden" type="radio" name="answer" value="artist-1" id="answer-1" />
+            <input
+              className="artist__input visually-hidden"
+              type="radio" name="answer"
+              value="artist-1"
+              id="answer-1"
+              onClick={onNextScreenClick}
+            />
             <label className="artist__name" htmlFor="answer-1">
               <img className="artist__picture" src={picture} alt="Пелагея" />
               {artist}
@@ -70,6 +87,7 @@ GameArtist.propTypes = {
       src: string,
     }))
   }).isRequired,
+  onNextScreenClick: func.isRequired,
 };
 
 export default GameArtist;
