@@ -15,6 +15,14 @@ import GameGenre from '../game-genre/game-genre.jsx';
 import {QUESTION_TYPE} from '../../consts/index.js';
 
 class App extends Component {
+  static propTypes = {
+    questions: arrayOf(shape({})).isRequired,
+    gameSettings: shape({
+      gameTime: number,
+      maxMistakes: number,
+    }).isRequired,
+  }
+
   state = {
     currentQuestion: -1,
   }
@@ -28,6 +36,10 @@ class App extends Component {
     } else {
       this.setState((prevState) => ({currentQuestion: prevState.currentQuestion + 1}));
     }
+  }
+
+  getAnswerHandler = (answer) => {
+    return null;
   }
 
   render() {
@@ -49,10 +61,18 @@ class App extends Component {
         <Else>
           <Switch>
             <Case condition={caseCondition === QUESTION_TYPE.ARTIST}>
-              <GameArtist gameData={questions[gameArtisDataIndex]} onNextScreenClick={this.nextScreenHandler} />
+              <GameArtist
+                gameData={questions[gameArtisDataIndex]}
+                onNextScreenClick={this.nextScreenHandler}
+                onSetAnswerClik={this.getAnswerHandler}
+              />
             </Case>
             <Case condition={caseCondition === QUESTION_TYPE.GENRE}>
-              <GameGenre gameData={questions[gameGenreDataIndex]} onNextScreenClick={this.nextScreenHandler} />
+              <GameGenre
+                gameData={questions[gameGenreDataIndex]}
+                onNextScreenClick={this.nextScreenHandler}
+                onSetAnswerClik={this.getAnswerHandler}
+              />
             </Case>
             <Default>
               {null}
@@ -63,13 +83,5 @@ class App extends Component {
     );
   }
 }
-
-App.propTypes = {
-  questions: arrayOf(shape({})).isRequired,
-  gameSettings: shape({
-    gameTime: number,
-    maxMistakes: number,
-  }).isRequired,
-};
 
 export default App;
