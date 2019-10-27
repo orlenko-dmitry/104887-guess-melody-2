@@ -14,6 +14,8 @@ parserOptions:
 
 plugins: ['react']
 
+parser: `babel-eslint`
+
 settings:
   react:
     version: '16'

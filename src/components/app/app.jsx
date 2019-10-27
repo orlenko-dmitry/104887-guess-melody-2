@@ -15,15 +15,11 @@ import GameGenre from '../game-genre/game-genre.jsx';
 import {QUESTION_TYPE} from '../../consts/index.js';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentQuestion: -1,
-    };
-    this.nextScreenHandler = this.nextScreenHandler.bind(this);
+  state = {
+    currentQuestion: -1,
   }
 
-  nextScreenHandler() {
+  nextScreenHandler = () => {
     const {questions} = this.props;
     const {currentQuestion} = this.state;
 
