@@ -12,6 +12,7 @@ import {
 import WelcomeScreen from '../welcome-screen/welcome-screen.jsx';
 import GameArtist from '../game-artist/game-artist.jsx';
 import GameGenre from '../game-genre/game-genre.jsx';
+import {QUESTION_TYPE} from '../../consts/index.js';
 
 class App extends Component {
   constructor(props) {
@@ -36,8 +37,9 @@ class App extends Component {
   render() {
     const {gameSettings: {gameTime, maxMistakes}, questions} = this.props;
     const {currentQuestion} = this.state;
-    const gameArtisDataIndex = questions.map((question) => question.type).indexOf(`artist`);
-    const gameGenreDataIndex = questions.map((question) => question.type).indexOf(`genre`);
+    const gameArtisDataIndex = questions.map((question) => question.type).indexOf(QUESTION_TYPE.ARTIST);
+    const gameGenreDataIndex = questions.map((question) => question.type).indexOf(QUESTION_TYPE.GENRE);
+    const caseCondition = currentQuestion === -1 ? `` : questions[currentQuestion].type;
 
     return (
       <If condition={currentQuestion === -1}>
@@ -50,10 +52,10 @@ class App extends Component {
         </Then>
         <Else>
           <Switch>
-            <Case condition={questions[currentQuestion] && questions[currentQuestion].type === `artist`}>
+            <Case condition={caseCondition === QUESTION_TYPE.ARTIST}>
               <GameArtist gameData={questions[gameArtisDataIndex]} onNextScreenClick={this.nextScreenHandler} />
             </Case>
-            <Case condition={questions[currentQuestion] && questions[currentQuestion].type === `genre`}>
+            <Case condition={caseCondition === QUESTION_TYPE.GENRE}>
               <GameGenre gameData={questions[gameGenreDataIndex]} onNextScreenClick={this.nextScreenHandler} />
             </Case>
             <Default>
