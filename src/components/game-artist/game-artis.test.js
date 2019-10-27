@@ -9,8 +9,7 @@ it(`GameArtist renders correctly`, () => {
     .create(
         <GameArtist
           gameData={questions[0]}
-          onNextScreenClick={() => {}}
-          onSetAnswerClik={() => {}}
+          onSetAnswerClick={() => {}}
         />
     ).toJSON();
   expect(tree).toMatchSnapshot();

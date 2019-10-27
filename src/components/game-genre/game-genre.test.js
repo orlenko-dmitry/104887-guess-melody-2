@@ -9,8 +9,7 @@ it(`GameGenre renders correctly`, () => {
     .create(
         <GameGenre
           gameData={questions[1]}
-          onNextScreenClick={() => {}}
-          onSetAnswerClik={() => {}}
+          onSetAnswerClick={() => {}}
         />
     ).toJSON();
   expect(tree).toMatchSnapshot();

@@ -40,6 +40,7 @@ class App extends Component {
   }
 
   getAnswerHandler = (answer) => {
+    this.nextScreenHandler();
     return answer;
   }
 
@@ -64,15 +65,13 @@ class App extends Component {
             <Case condition={caseCondition === QUESTION_TYPE.ARTIST}>
               <GameArtist
                 gameData={questions[gameArtisDataIndex]}
-                onNextScreenClick={this.nextScreenHandler}
-                onSetAnswerClik={this.getAnswerHandler}
+                onSetAnswerClick={this.getAnswerHandler}
               />
             </Case>
             <Case condition={caseCondition === QUESTION_TYPE.GENRE}>
               <GameGenre
                 gameData={questions[gameGenreDataIndex]}
-                onNextScreenClick={this.nextScreenHandler}
-                onSetAnswerClik={this.getAnswerHandler}
+                onSetAnswerClick={this.getAnswerHandler}
               />
             </Case>
             <Default>

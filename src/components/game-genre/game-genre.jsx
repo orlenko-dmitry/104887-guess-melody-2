@@ -7,15 +7,9 @@ import {
 } from 'prop-types';
 import {Formik, Form} from 'formik';
 
-const answerClickHandler = (answer, onSetAnswerClik, onNextScreenClick) => {
-  onSetAnswerClik(answer);
-  onNextScreenClick();
-};
-
 const GameGenre = ({
   gameData: {answers},
-  onNextScreenClick,
-  onSetAnswerClik,
+  onSetAnswerClick,
 }) => (
   <section className="game game--genre">
     <header className="game__header">
@@ -51,7 +45,7 @@ const GameGenre = ({
       <h2 className="game__title">Выберите инди-рок треки</h2>
       <Formik
         initialValues={{answer: []}}
-        onSubmit={({answer}) => answerClickHandler(answer, onSetAnswerClik, onNextScreenClick)}
+        onSubmit={({answer}) => onSetAnswerClick(answer)}
       >
         {({handleChange}) => (
           <Form className="game__tracks">
@@ -96,8 +90,7 @@ GameGenre.propTypes = {
       genre: string,
     }))
   }).isRequired,
-  onNextScreenClick: func.isRequired,
-  onSetAnswerClik: func.isRequired,
+  onSetAnswerClick: func.isRequired,
 };
 
 export default GameGenre;

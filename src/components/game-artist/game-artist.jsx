@@ -6,18 +6,12 @@ import {
   func,
 } from 'prop-types';
 
-const answerClickHandler = (answer, onSetAnswerClik, onNextScreenClick) => () => {
-  onSetAnswerClik(answer);
-  onNextScreenClick();
-};
-
 const GameArtist = ({
   gameData: {
     song: {src},
     answers,
   },
-  onNextScreenClick,
-  onSetAnswerClik,
+  onSetAnswerClick,
 }) => (
   <section className="game game--artist">
     <header className="game__header">
@@ -64,7 +58,7 @@ const GameArtist = ({
         {answers.map(({picture, artist}, index) => (
           <div
             className="artist" key={`${artist}-${index}`}
-            onClick={answerClickHandler(artist, onSetAnswerClik, onNextScreenClick)}
+            onClick={() => onSetAnswerClick(artist)}
           >
             <input
               className="artist__input visually-hidden"
@@ -95,8 +89,7 @@ GameArtist.propTypes = {
       src: string,
     }))
   }).isRequired,
-  onNextScreenClick: func.isRequired,
-  onSetAnswerClik: func.isRequired,
+  onSetAnswerClick: func.isRequired,
 };
 
 export default GameArtist;
