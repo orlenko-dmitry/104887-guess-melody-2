@@ -1,3 +1,4 @@
+/* eslint-disable no-invalid-this */
 import React, {Component} from 'react';
 import {arrayOf, shape, number} from 'prop-types';
 import {
@@ -39,7 +40,7 @@ class App extends Component {
   }
 
   getAnswerHandler = (answer) => {
-    return null;
+    return answer;
   }
 
   render() {

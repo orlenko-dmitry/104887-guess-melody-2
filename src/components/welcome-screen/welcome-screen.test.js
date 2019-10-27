@@ -5,6 +5,12 @@ import WelcomeScreen from './welcome-screen.jsx';
 
 it(`WelcomeScreen renders correctly`, () => {
   const tree = renderer
-    .create(<WelcomeScreen minutes={7} mistakesNumber={4} />).toJSON();
+    .create(
+        <WelcomeScreen
+          minutes={7}
+          mistakesNumber={4}
+          onNextScreenClick={() => {}}
+        />
+    ).toJSON();
   expect(tree).toMatchSnapshot();
 });

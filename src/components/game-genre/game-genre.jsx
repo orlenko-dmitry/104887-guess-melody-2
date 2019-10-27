@@ -5,56 +5,56 @@ import {
   string,
   func,
 } from 'prop-types';
-import {Formi, Form, Field, Formik} from 'formik';
+import {Formik, Form} from 'formik';
 
 const answerClickHandler = (answer, onSetAnswerClik, onNextScreenClick) => {
   onSetAnswerClik(answer);
   onNextScreenClick();
-}
+};
 
 const GameGenre = ({
   gameData: {answers},
   onNextScreenClick,
   onSetAnswerClik,
 }) => (
-    <section className="game game--genre">
-      <header className="game__header">
-        <a className="game__back" href="#">
-          <span className="visually-hidden">Сыграть ещё раз</span>
-          <img className="game__logo" src="img/melody-logo-ginger.png" alt="Угадай мелодию" />
-        </a>
-  
-        <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">
-          <circle
-            className="timer__line"
-            cx="390"
-            cy="390"
-            r="370"
-            style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}}
-          />
-        </svg>
-  
-        <div className="timer__value" xmlns="http://www.w3.org/1999/xhtml">
-          <span className="timer__mins">05</span>
-          <span className="timer__dots">:</span>
-          <span className="timer__secs">00</span>
-        </div>
-  
-        <div className="game__mistakes">
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-        </div>
-      </header>
-  
-      <section className="game__screen">
-        <h2 className="game__title">Выберите инди-рок треки</h2>
-        <Formik
-          initialValues={{answer: []}}
-          onSubmit={({answer}) => answerClickHandler(answer, onSetAnswerClik, onNextScreenClick)}
-        >
-          {({values, handleChange}) => (
-            <Form className="game__tracks">
+  <section className="game game--genre">
+    <header className="game__header">
+      <a className="game__back" href="#">
+        <span className="visually-hidden">Сыграть ещё раз</span>
+        <img className="game__logo" src="img/melody-logo-ginger.png" alt="Угадай мелодию" />
+      </a>
+
+      <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">
+        <circle
+          className="timer__line"
+          cx="390"
+          cy="390"
+          r="370"
+          style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}}
+        />
+      </svg>
+
+      <div className="timer__value" xmlns="http://www.w3.org/1999/xhtml">
+        <span className="timer__mins">05</span>
+        <span className="timer__dots">:</span>
+        <span className="timer__secs">00</span>
+      </div>
+
+      <div className="game__mistakes">
+        <div className="wrong"></div>
+        <div className="wrong"></div>
+        <div className="wrong"></div>
+      </div>
+    </header>
+
+    <section className="game__screen">
+      <h2 className="game__title">Выберите инди-рок треки</h2>
+      <Formik
+        initialValues={{answer: []}}
+        onSubmit={({answer}) => answerClickHandler(answer, onSetAnswerClik, onNextScreenClick)}
+      >
+        {({handleChange}) => (
+          <Form className="game__tracks">
             {answers.map(({genre, src}, index) => (
               <div className="track" key={`${genre}-${index}`}>
                 <button className="track__button track__button--play" type="button"></button>
@@ -80,11 +80,11 @@ const GameGenre = ({
             >
                 Ответить
             </button>
-            </Form>
-          )}
-        </Formik>
-      </section>
+          </Form>
+        )}
+      </Formik>
     </section>
+  </section>
 );
 
 GameGenre.propTypes = {
