@@ -11,8 +11,11 @@
   },
   "devDependencies": {
     "@babel/core": "7.6.4",
+    "@babel/plugin-proposal-class-properties": "7.5.5",
     "@babel/preset-env": "7.6.3",
     "@babel/preset-react": "7.6.3",
+    "@testing-library/react": "9.3.0",
+    "babel-eslint": "10.0.3",
     "babel-jest": "24.9.0",
     "babel-loader": "8.0.6",
     "enzyme": "3.10.0",
@@ -30,8 +33,10 @@
     "node": "10"
   },
   "dependencies": {
+    "formik": "2.0.1",
     "prop-types": "15.7.2",
     "react": "16.10.2",
-    "react-dom": "16.10.2"
+    "react-dom": "16.10.2",
+    "react-if": "3.4.3"
   }
 }
