@@ -1,32 +1,36 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import {render, fireEvent, wait} from "@testing-library/react";
 
 import GameGenre from './game-genre.jsx';
 import questions from '../../mocks/questions.js';
 
 describe(`Test for GameGenre`, () => {
-  it(`onSetAnswerClick have been called 1 time`, () => {
-    const onSetAnswerClick = jest.fn();
-    const wrapper = mount(
+  it(`onSetAnswerClick have been called 1 time`, async () => {
+    const clickHandler = jest.fn();
+    const {getByText} = render(
         <GameGenre
           gameData={questions[1]}
-          onSetAnswerClick={onSetAnswerClick}
+          onSetAnswerClick={clickHandler}
         />
     );
-    const submitBtn = wrapper.find(`.game__submit`);
-    submitBtn.simulate(`click`, {preventDefault() {}});
-    expect(onSetAnswerClick).toHaveBeenCalledTimes(1);
+    const submitBtn = getByText(`Ответить`);
+
+    fireEvent.click(submitBtn);
+
+    await wait(() => expect(clickHandler).toHaveBeenCalledTimes(1));
   });
-  it(`onSetAnswerClick calls its callback with an array`, () => {
-    const onSetAnswerClick = jest.fn();
-    const wrapper = mount(
+  it(`onSetAnswerClick calls its callback with an array`, async () => {
+    const clickHandler = jest.fn();
+    const {getByText} = render(
         <GameGenre
           gameData={questions[1]}
-          onSetAnswerClick={onSetAnswerClick}
+          onSetAnswerClick={clickHandler}
         />
     );
-    const submitBtn = wrapper.find(`.game__submit`);
-    submitBtn.simulate(`click`, {preventDefault() {}});
-    expect(onSetAnswerClick).toBecalledWith(expect.any(Array));
+    const submitBtn = getByText(`Ответить`);
+
+    fireEvent.click(submitBtn);
+
+    await (() => expect(clickHandler).toBecalledWith(expect.any(Array)));
   });
 });
