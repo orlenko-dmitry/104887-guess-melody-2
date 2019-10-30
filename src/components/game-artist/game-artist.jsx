@@ -49,7 +49,7 @@ const GameArtist = ({
         <div className="track">
           <button className="track__button track__button--play" type="button"></button>
           <div className="track__status">
-            <audio src={src}></audio>
+            <audio src={src} controls></audio>
           </div>
         </div>
       </div>

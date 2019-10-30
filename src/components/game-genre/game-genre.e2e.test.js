@@ -31,6 +31,6 @@ describe(`Test for GameGenre`, () => {
 
     fireEvent.click(submitBtn);
 
-    await (() => expect(clickHandler).toBecalledWith(expect.any(Array)));
+    await wait(() => expect(clickHandler).toBecalledWith(expect.any(Array)));
   });
 });
