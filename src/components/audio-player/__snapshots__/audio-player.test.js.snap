@@ -1,9 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AudioPlayer renders correctly 1`] = `
-<button
-  class="track__button track__button--play"
-  disabled=""
-  type="button"
-/>
+<div>
+  <button
+    class="track__button track__button--play"
+    data-testid="play-btn"
+    disabled=""
+    type="button"
+  />
+  <div
+    class="track__status"
+  >
+    <audio
+      src="https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6d/National_anthem_of_Ukraine%2C_instrumental.oga/National_anthem_of_Ukraine%2C_instrumental.oga.mp3"
+    />
+  </div>
+</div>
 `;

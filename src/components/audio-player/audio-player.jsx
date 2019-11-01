@@ -81,6 +81,7 @@ class AudioPlayer extends PureComponent {
         <button
           className={`track__button track__button--${isPlaying ? `pause` : `play`}`}
           type="button"
+          data-testid="play-btn"
           disabled={isLoading}
           onClick={this.playButtonClickHandler}
         ></button>
