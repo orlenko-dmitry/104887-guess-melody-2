@@ -7,13 +7,13 @@ import questions from '../../mocks/questions.js';
 describe(`Test for GameGenre`, () => {
   it(`onSetAnswerClick have been called 1 time`, async () => {
     const clickHandler = jest.fn();
-    const {getByText} = render(
+    const {getByTestId} = render(
         <GameGenre
           gameData={questions[1]}
           onSetAnswerClick={clickHandler}
         />
     );
-    const submitBtn = getByText(`Ответить`);
+    const submitBtn = getByTestId(`submit-btn`);
 
     fireEvent.click(submitBtn);
 
@@ -21,16 +21,16 @@ describe(`Test for GameGenre`, () => {
   });
   it(`onSetAnswerClick calls its callback with an array`, async () => {
     const clickHandler = jest.fn();
-    const {getByText} = render(
+    const {getByTestId} = render(
         <GameGenre
           gameData={questions[1]}
           onSetAnswerClick={clickHandler}
         />
     );
-    const submitBtn = getByText(`Ответить`);
+    const submitBtn = getByTestId(`submit-btn`);
 
     fireEvent.click(submitBtn);
 
-    await wait(() => expect(clickHandler).toBecalledWith(expect.any(Array)));
+    await wait(() => expect(clickHandler).toBeCalledWith(expect.any(Array)));
   });
 });

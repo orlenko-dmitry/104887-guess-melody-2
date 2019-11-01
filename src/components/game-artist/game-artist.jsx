@@ -87,10 +87,11 @@ class GameArtist extends Component {
           </div>
 
           <form className="game__artist">
-            {answers.map(({picture, artist, id}) => (
+            {answers.map(({picture, artist, id}, index) => (
               <div
                 className="artist"
                 key={id}
+                data-testid={`artist-${index}`}
                 onClick={() => onSetAnswerClick(artist)}
               >
                 <input

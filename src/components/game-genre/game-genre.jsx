@@ -1,3 +1,4 @@
+/* eslint-disable no-invalid-this */
 import React, {PureComponent} from 'react';
 import {
   arrayOf,
@@ -24,6 +25,13 @@ class GameGenre extends PureComponent {
 
   state = {
     activePlayer: -1,
+  }
+
+  playButtonClickHandler = (index) => () => {
+    const {activePlayer} = this.setState;
+    this.setState({
+      activePlayer: activePlayer === index ? -1 : index
+    });
   }
 
   render() {
@@ -74,9 +82,7 @@ class GameGenre extends PureComponent {
                     <AudioPlayer
                       src={src}
                       isPlaying={index === activePlayer}
-                      onPlayButtonClick={() => this.setState({
-                        activePlayer: activePlayer === index ? -1 : index
-                      })}
+                      onPlayButtonClick={this.playButtonClickHandler(index)}
                     />
                     <div className="game__answer">
                       <input
@@ -93,6 +99,7 @@ class GameGenre extends PureComponent {
                 ))}
                 <button
                   className="game__submit button"
+                  data-testid="submit-btn"
                   type="submit"
                 >
                     Ответить

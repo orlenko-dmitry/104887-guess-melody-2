@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AudioPlayer renders correctly 1`] = `
+<button
+  class="track__button track__button--play"
+  disabled=""
+  type="button"
+/>
+`;
