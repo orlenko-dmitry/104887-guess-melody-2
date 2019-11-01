@@ -3,8 +3,10 @@ import React, {PureComponent} from 'react';
 import {
   arrayOf,
   shape,
+  oneOf,
   string,
   func,
+  number,
 } from 'prop-types';
 import {Formik, Form} from 'formik';
 
@@ -13,11 +15,12 @@ import AudioPlayer from '../audio-player/audio-player.jsx';
 class GameGenre extends PureComponent {
   static propTypes = {
     gameData: shape({
-      type: string,
-      genre: string,
+      type: oneOf([`artist`, `genre`]),
+      genre: string.isRequired,
       answers: arrayOf(shape({
-        src: string,
-        genre: string,
+        id: number.isRequired,
+        src: string.isRequired,
+        genre: string.isRequired,
       }))
     }).isRequired,
     onSetAnswerClick: func.isRequired,

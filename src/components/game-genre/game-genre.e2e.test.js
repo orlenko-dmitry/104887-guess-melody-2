@@ -5,7 +5,7 @@ import GameGenre from './game-genre.jsx';
 import questions from '../../mocks/questions.js';
 
 describe(`Test for GameGenre`, () => {
-  it(`onSetAnswerClick have been called 1 time`, async () => {
+  it(`onSetAnswerClick have been called 1 time`, () => {
     const clickHandler = jest.fn();
     const {getByTestId} = render(
         <GameGenre
@@ -17,9 +17,9 @@ describe(`Test for GameGenre`, () => {
 
     fireEvent.click(submitBtn);
 
-    await wait(() => expect(clickHandler).toHaveBeenCalledTimes(1));
+    wait(() => expect(clickHandler).toHaveBeenCalledTimes(1));
   });
-  it(`onSetAnswerClick calls its callback with an array`, async () => {
+  it(`onSetAnswerClick calls its callback with an array`, () => {
     const clickHandler = jest.fn();
     const {getByTestId} = render(
         <GameGenre
@@ -31,6 +31,6 @@ describe(`Test for GameGenre`, () => {
 
     fireEvent.click(submitBtn);
 
-    await wait(() => expect(clickHandler).toBeCalledWith(expect.any(Array)));
+    wait(() => expect(clickHandler).toBeCalledWith(expect.any(Array)));
   });
 });

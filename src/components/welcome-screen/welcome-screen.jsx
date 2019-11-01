@@ -30,11 +30,7 @@ const WelcomeScreen = ({
 WelcomeScreen.propTypes = {
   minutes: number.isRequired,
   mistakesNumber: number.isRequired,
-  onNextScreenClick: func,
-};
-
-WelcomeScreen.defaultProps = {
-  startGameHandler: () => null,
+  onNextScreenClick: func.isRequired,
 };
 
 export default WelcomeScreen;

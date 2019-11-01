@@ -3,8 +3,10 @@ import React, {Component} from 'react';
 import {
   arrayOf,
   shape,
+  oneOf,
   string,
   func,
+  number,
 } from 'prop-types';
 
 import AudioPlayer from '../audio-player/audio-player.jsx';
@@ -12,14 +14,15 @@ import AudioPlayer from '../audio-player/audio-player.jsx';
 class GameArtist extends Component {
   static propTypes = {
     gameData: shape({
-      type: string,
+      type: oneOf([`artist`, `genre`]),
       song: shape({
-        artist: string,
-        src: string,
+        artist: string.isRequired,
+        src: string.isRequired,
       }),
       answers: arrayOf(shape({
-        picture: string,
-        src: string,
+        id: number.isRequired,
+        picture: string.isRequired,
+        artist: string.isRequired,
       }))
     }).isRequired,
     onSetAnswerClick: func.isRequired,
