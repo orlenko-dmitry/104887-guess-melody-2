@@ -1,19 +1,22 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import {render, fireEvent} from '@testing-library/react';
 
 import GameArtist from './game-artist.jsx';
 import questions from '../../mocks/questions.js';
 
 const onSetAnswerClick = jest.fn();
-const wrapper = shallow(
+const {getByTestId} = render(
     <GameArtist
       gameData={questions[0]}
       onSetAnswerClick={onSetAnswerClick}
     />
 );
-const artist = wrapper.find(`.artist`).first();
+const artist = getByTestId(`artist-0`);
+jest
+  .spyOn(window.HTMLMediaElement.prototype, `pause`)
+  .mockImplementation(() => {});
 
-artist.simulate(`click`);
+fireEvent.click(artist);
 
 describe(`Tests for GameArtist`, () => {
   it(`onSetAnswerClick have been called 1 time`, () => {

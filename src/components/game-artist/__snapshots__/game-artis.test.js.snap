@@ -2,176 +2,172 @@
 
 exports[`GameArtist renders correctly 1`] = `
 <section
-  className="game game--artist"
+  class="game game--artist"
 >
   <header
-    className="game__header"
+    class="game__header"
   >
     <a
-      className="game__back"
+      class="game__back"
       href="#"
     >
       <span
-        className="visually-hidden"
+        class="visually-hidden"
       >
         Сыграть ещё раз
       </span>
       <img
         alt="Угадай мелодию"
-        className="game__logo"
+        class="game__logo"
         src="img/melody-logo-ginger.png"
       />
     </a>
     <svg
-      className="timer"
+      class="timer"
       viewBox="0 0 780 780"
       xmlns="http://www.w3.org/2000/svg"
     >
       <circle
-        className="timer__line"
+        class="timer__line"
         cx="390"
         cy="390"
         r="370"
-        style={
-          Object {
-            "filter": "url(#blur)",
-            "transform": "rotate(-90deg) scaleY(-1)",
-            "transformOrigin": "center",
-          }
-        }
+        style="filter: url(#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center;"
       />
     </svg>
     <div
-      className="timer__value"
+      class="timer__value"
       xmlns="http://www.w3.org/1999/xhtml"
     >
       <span
-        className="timer__mins"
+        class="timer__mins"
       >
         05
       </span>
       <span
-        className="timer__dots"
+        class="timer__dots"
       >
         :
       </span>
       <span
-        className="timer__secs"
+        class="timer__secs"
       >
         00
       </span>
     </div>
     <div
-      className="game__mistakes"
+      class="game__mistakes"
     >
       <div
-        className="wrong"
+        class="wrong"
       />
       <div
-        className="wrong"
+        class="wrong"
       />
       <div
-        className="wrong"
+        class="wrong"
       />
     </div>
   </header>
   <section
-    className="game__screen"
+    class="game__screen"
   >
     <h2
-      className="game__title"
+      class="game__title"
     >
       Кто исполняет эту песню?
     </h2>
     <div
-      className="game__track"
+      class="game__track"
     >
       <div
-        className="track"
+        class="track"
       >
         <button
-          className="track__button track__button--play"
+          class="track__button track__button--play"
+          data-testid="play-btn-0"
+          disabled=""
           type="button"
         />
         <div
-          className="track__status"
+          class="track__status"
         >
           <audio
-            src="https://es31-server.appspot.com/guess-melody/static/music/Blue_Whale.mp3"
+            src="https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6d/National_anthem_of_Ukraine%2C_instrumental.oga/National_anthem_of_Ukraine%2C_instrumental.oga.mp3"
           />
         </div>
       </div>
     </div>
     <form
-      className="game__artist"
+      class="game__artist"
     >
       <div
-        className="artist"
-        onClick={[Function]}
+        class="artist"
+        data-testid="artist-0"
       >
         <input
-          className="artist__input visually-hidden"
-          id="answer-0"
+          class="artist__input visually-hidden"
+          id="1"
           name="answer"
           type="radio"
-          value="artist-0"
+          value="The Beatles"
         />
         <label
-          className="artist__name"
-          htmlFor="answer-0"
+          class="artist__name"
+          for="1"
         >
           <img
             alt="Пелагея"
-            className="artist__picture"
+            class="artist__picture"
             src="https://es31-server.appspot.com/guess-melody/static/artist/Quincas_Moreira.jpg"
           />
-          Quincas Moreira
+          The Beatles
         </label>
       </div>
       <div
-        className="artist"
-        onClick={[Function]}
+        class="artist"
+        data-testid="artist-1"
       >
         <input
-          className="artist__input visually-hidden"
-          id="answer-1"
+          class="artist__input visually-hidden"
+          id="2"
           name="answer"
           type="radio"
-          value="artist-1"
+          value="Oasis"
         />
         <label
-          className="artist__name"
-          htmlFor="answer-1"
+          class="artist__name"
+          for="2"
         >
           <img
             alt="Пелагея"
-            className="artist__picture"
+            class="artist__picture"
             src="https://es31-server.appspot.com/guess-melody/static/artist/Density_n_Time.jpg"
           />
-          Density & Time
+          Oasis
         </label>
       </div>
       <div
-        className="artist"
-        onClick={[Function]}
+        class="artist"
+        data-testid="artist-2"
       >
         <input
-          className="artist__input visually-hidden"
-          id="answer-2"
+          class="artist__input visually-hidden"
+          id="3"
           name="answer"
           type="radio"
-          value="artist-2"
+          value="The Kinks"
         />
         <label
-          className="artist__name"
-          htmlFor="answer-2"
+          class="artist__name"
+          for="3"
         >
           <img
             alt="Пелагея"
-            className="artist__picture"
+            class="artist__picture"
             src="https://es31-server.appspot.com/guess-melody/static/artist/Endless_Love.jpg"
           />
-          Endless Love
+          The Kinks
         </label>
       </div>
     </form>

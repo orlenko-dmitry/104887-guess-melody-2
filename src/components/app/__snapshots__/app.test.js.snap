@@ -2,10 +2,10 @@
 
 exports[`App renders correctly 1`] = `
 <section
-  className="welcome"
+  class="welcome"
 >
   <div
-    className="welcome__logo"
+    class="welcome__logo"
   >
     <img
       alt="Угадай мелодию"
@@ -15,27 +15,27 @@ exports[`App renders correctly 1`] = `
     />
   </div>
   <button
-    className="welcome__button"
-    onClick={[Function]}
+    class="welcome__button"
+    data-testid="start-game-btn"
   >
     <span
-      className="visually-hidden"
+      class="visually-hidden"
     >
       Начать игру
     </span>
   </button>
   <h2
-    className="welcome__rules-title"
+    class="welcome__rules-title"
   >
     Правила игры
   </h2>
   <p
-    className="welcome__text"
+    class="welcome__text"
   >
     Правила просты:
   </p>
   <ul
-    className="welcome__rules-list"
+    class="welcome__rules-list"
   >
     <li>
       За 
@@ -49,7 +49,7 @@ exports[`App renders correctly 1`] = `
     </li>
   </ul>
   <p
-    className="welcome__text"
+    class="welcome__text"
   >
     Удачи!
   </p>

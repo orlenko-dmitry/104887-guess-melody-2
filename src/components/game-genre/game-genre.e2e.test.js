@@ -5,32 +5,35 @@ import GameGenre from './game-genre.jsx';
 import questions from '../../mocks/questions.js';
 
 describe(`Test for GameGenre`, () => {
-  it(`onSetAnswerClick have been called 1 time`, async () => {
+  it(`onSetAnswerClick have been called 1 time`, () => {
     const clickHandler = jest.fn();
-    const {getByText} = render(
+    const {getByTestId} = render(
         <GameGenre
           gameData={questions[1]}
           onSetAnswerClick={clickHandler}
         />
     );
-    const submitBtn = getByText(`Ответить`);
+    const submitBtn = getByTestId(`submit-btn`);
+    jest
+      .spyOn(window.HTMLMediaElement.prototype, `pause`)
+      .mockImplementation(() => {});
 
     fireEvent.click(submitBtn);
 
-    await wait(() => expect(clickHandler).toHaveBeenCalledTimes(1));
+    wait(() => expect(clickHandler).toHaveBeenCalledTimes(1));
   });
-  it(`onSetAnswerClick calls its callback with an array`, async () => {
+  it(`onSetAnswerClick calls its callback with an array`, () => {
     const clickHandler = jest.fn();
-    const {getByText} = render(
+    const {getByTestId} = render(
         <GameGenre
           gameData={questions[1]}
           onSetAnswerClick={clickHandler}
         />
     );
-    const submitBtn = getByText(`Ответить`);
+    const submitBtn = getByTestId(`submit-btn`);
 
     fireEvent.click(submitBtn);
 
-    await (() => expect(clickHandler).toBecalledWith(expect.any(Array)));
+    wait(() => expect(clickHandler).toBeCalledWith(expect.any(Array)));
   });
 });

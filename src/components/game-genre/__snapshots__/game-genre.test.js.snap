@@ -2,227 +2,224 @@
 
 exports[`GameGenre renders correctly 1`] = `
 <section
-  className="game game--genre"
+  class="game game--genre"
 >
   <header
-    className="game__header"
+    class="game__header"
   >
     <a
-      className="game__back"
+      class="game__back"
       href="#"
     >
       <span
-        className="visually-hidden"
+        class="visually-hidden"
       >
         Сыграть ещё раз
       </span>
       <img
         alt="Угадай мелодию"
-        className="game__logo"
+        class="game__logo"
         src="img/melody-logo-ginger.png"
       />
     </a>
     <svg
-      className="timer"
+      class="timer"
       viewBox="0 0 780 780"
       xmlns="http://www.w3.org/2000/svg"
     >
       <circle
-        className="timer__line"
+        class="timer__line"
         cx="390"
         cy="390"
         r="370"
-        style={
-          Object {
-            "filter": "url(#blur)",
-            "transform": "rotate(-90deg) scaleY(-1)",
-            "transformOrigin": "center",
-          }
-        }
+        style="filter: url(#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center;"
       />
     </svg>
     <div
-      className="timer__value"
+      class="timer__value"
       xmlns="http://www.w3.org/1999/xhtml"
     >
       <span
-        className="timer__mins"
+        class="timer__mins"
       >
         05
       </span>
       <span
-        className="timer__dots"
+        class="timer__dots"
       >
         :
       </span>
       <span
-        className="timer__secs"
+        class="timer__secs"
       >
         00
       </span>
     </div>
     <div
-      className="game__mistakes"
+      class="game__mistakes"
     >
       <div
-        className="wrong"
+        class="wrong"
       />
       <div
-        className="wrong"
+        class="wrong"
       />
       <div
-        className="wrong"
+        class="wrong"
       />
     </div>
   </header>
   <section
-    className="game__screen"
+    class="game__screen"
   >
     <h2
-      className="game__title"
+      class="game__title"
     >
       Выберите инди-рок треки
     </h2>
     <form
       action="#"
-      className="game__tracks"
-      onReset={[Function]}
-      onSubmit={[Function]}
+      class="game__tracks"
     >
       <div
-        className="track"
+        class="track"
       >
         <button
-          className="track__button track__button--play"
+          class="track__button track__button--play"
+          data-testid="play-btn-0"
+          disabled=""
           type="button"
         />
         <div
-          className="track__status"
+          class="track__status"
         >
           <audio
-            src="https://es31-server.appspot.com/guess-melody/static/music/Addis_Ababa.mp3"
+            src="https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6d/National_anthem_of_Ukraine%2C_instrumental.oga/National_anthem_of_Ukraine%2C_instrumental.oga.mp3"
           />
         </div>
         <div
-          className="game__answer"
+          class="game__answer"
         >
           <input
-            className="game__input visually-hidden"
-            id="answer-0"
+            class="game__input visually-hidden"
+            id="1"
             name="answer"
-            onChange={[Function]}
             type="checkbox"
             value="reggae"
           />
           <label
-            className="game__check"
-            htmlFor="answer-0"
+            class="game__check"
+            for="1"
           >
             Отметить
           </label>
         </div>
       </div>
       <div
-        className="track"
+        class="track"
       >
         <button
-          className="track__button track__button--play"
+          class="track__button track__button--play"
+          data-testid="play-btn-1"
+          disabled=""
           type="button"
         />
         <div
-          className="track__status"
+          class="track__status"
         >
           <audio
-            src="https://es31-server.appspot.com/guess-melody/static/music/Azure.mp3"
+            src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b4/United_States_Navy_Band_-_O_Canada.ogg/United_States_Navy_Band_-_O_Canada.ogg.mp3"
           />
         </div>
         <div
-          className="game__answer"
+          class="game__answer"
         >
           <input
-            className="game__input visually-hidden"
-            id="answer-1"
+            class="game__input visually-hidden"
+            id="2"
             name="answer"
-            onChange={[Function]}
             type="checkbox"
             value="electronic"
           />
           <label
-            className="game__check"
-            htmlFor="answer-1"
+            class="game__check"
+            for="2"
           >
             Отметить
           </label>
         </div>
       </div>
       <div
-        className="track"
+        class="track"
       >
         <button
-          className="track__button track__button--play"
+          class="track__button track__button--play"
+          data-testid="play-btn-2"
+          disabled=""
           type="button"
         />
         <div
-          className="track__status"
+          class="track__status"
         >
           <audio
-            src="https://es31-server.appspot.com/guess-melody/static/music/Whaling_City.mp3"
+            src="https://upload.wikimedia.org/wikipedia/commons/transcoded/3/30/La_Marseillaise.ogg/La_Marseillaise.ogg.mp3"
           />
         </div>
         <div
-          className="game__answer"
+          class="game__answer"
         >
           <input
-            className="game__input visually-hidden"
-            id="answer-2"
+            class="game__input visually-hidden"
+            id="3"
             name="answer"
-            onChange={[Function]}
             type="checkbox"
             value="country"
           />
           <label
-            className="game__check"
-            htmlFor="answer-2"
+            class="game__check"
+            for="3"
           >
             Отметить
           </label>
         </div>
       </div>
       <div
-        className="track"
+        class="track"
       >
         <button
-          className="track__button track__button--play"
+          class="track__button track__button--play"
+          data-testid="play-btn-3"
+          disabled=""
           type="button"
         />
         <div
-          className="track__status"
+          class="track__status"
         >
           <audio
-            src="https://es31-server.appspot.com/guess-melody/static/music/Skanada.mp3"
+            src="https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c8/Marcha_Real-Royal_March_by_US_Navy_Band.ogg/Marcha_Real-Royal_March_by_US_Navy_Band.ogg.mp3"
           />
         </div>
         <div
-          className="game__answer"
+          class="game__answer"
         >
           <input
-            className="game__input visually-hidden"
-            id="answer-3"
+            class="game__input visually-hidden"
+            id="4"
             name="answer"
-            onChange={[Function]}
             type="checkbox"
             value="reggae"
           />
           <label
-            className="game__check"
-            htmlFor="answer-3"
+            class="game__check"
+            for="4"
           >
             Отметить
           </label>
         </div>
       </div>
       <button
-        className="game__submit button"
+        class="game__submit button"
+        data-testid="submit-btn"
         type="submit"
       >
         Ответить

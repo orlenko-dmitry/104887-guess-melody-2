@@ -1,96 +1,120 @@
-import React from 'react';
+/* eslint-disable no-invalid-this */
+import React, {PureComponent} from 'react';
 import {
   arrayOf,
   shape,
+  oneOf,
   string,
   func,
+  number,
 } from 'prop-types';
 import {Formik, Form} from 'formik';
 
-const GameGenre = ({
-  gameData: {answers},
-  onSetAnswerClick,
-}) => (
-  <section className="game game--genre">
-    <header className="game__header">
-      <a className="game__back" href="#">
-        <span className="visually-hidden">Сыграть ещё раз</span>
-        <img className="game__logo" src="img/melody-logo-ginger.png" alt="Угадай мелодию" />
-      </a>
+import AudioPlayer from '../audio-player/audio-player.jsx';
 
-      <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">
-        <circle
-          className="timer__line"
-          cx="390"
-          cy="390"
-          r="370"
-          style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}}
-        />
-      </svg>
+class GameGenre extends PureComponent {
+  static propTypes = {
+    gameData: shape({
+      type: oneOf([`artist`, `genre`]),
+      genre: string.isRequired,
+      answers: arrayOf(shape({
+        id: number.isRequired,
+        src: string.isRequired,
+        genre: string.isRequired,
+      }))
+    }).isRequired,
+    onSetAnswerClick: func.isRequired,
+  }
 
-      <div className="timer__value" xmlns="http://www.w3.org/1999/xhtml">
-        <span className="timer__mins">05</span>
-        <span className="timer__dots">:</span>
-        <span className="timer__secs">00</span>
-      </div>
+  state = {
+    activePlayer: -1,
+  }
 
-      <div className="game__mistakes">
-        <div className="wrong"></div>
-        <div className="wrong"></div>
-        <div className="wrong"></div>
-      </div>
-    </header>
+  playButtonClickHandler = (index) => () => {
+    const {activePlayer} = this.setState;
+    this.setState({
+      activePlayer: activePlayer === index ? -1 : index
+    });
+  }
 
-    <section className="game__screen">
-      <h2 className="game__title">Выберите инди-рок треки</h2>
-      <Formik
-        initialValues={{answer: []}}
-        onSubmit={({answer}) => onSetAnswerClick(answer)}
-      >
-        {({handleChange}) => (
-          <Form className="game__tracks">
-            {answers.map(({genre, src}, index) => (
-              <div className="track" key={`${genre}-${index}`}>
-                <button className="track__button track__button--play" type="button"></button>
-                <div className="track__status">
-                  <audio src={src}></audio>
-                </div>
-                <div className="game__answer">
-                  <input
-                    className="game__input visually-hidden"
-                    type="checkbox"
-                    name="answer"
-                    value={genre}
-                    id={`answer-${index}`}
-                    onChange={handleChange}
-                  />
-                  <label className="game__check" htmlFor={`answer-${index}`}>Отметить</label>
-                </div>
-              </div>
-            ))}
-            <button
-              className="game__submit button"
-              type="submit"
-            >
-                Ответить
-            </button>
-          </Form>
-        )}
-      </Formik>
-    </section>
-  </section>
-);
+  render() {
+    const {gameData: {answers}, onSetAnswerClick} = this.props;
+    const {activePlayer} = this.state;
 
-GameGenre.propTypes = {
-  gameData: shape({
-    type: string,
-    genre: string,
-    answers: arrayOf(shape({
-      src: string,
-      genre: string,
-    }))
-  }).isRequired,
-  onSetAnswerClick: func.isRequired,
-};
+    return (
+      <section className="game game--genre">
+        <header className="game__header">
+          <a className="game__back" href="#">
+            <span className="visually-hidden">Сыграть ещё раз</span>
+            <img className="game__logo" src="img/melody-logo-ginger.png" alt="Угадай мелодию" />
+          </a>
+
+          <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">
+            <circle
+              className="timer__line"
+              cx="390"
+              cy="390"
+              r="370"
+              style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}}
+            />
+          </svg>
+
+          <div className="timer__value" xmlns="http://www.w3.org/1999/xhtml">
+            <span className="timer__mins">05</span>
+            <span className="timer__dots">:</span>
+            <span className="timer__secs">00</span>
+          </div>
+
+          <div className="game__mistakes">
+            <div className="wrong"></div>
+            <div className="wrong"></div>
+            <div className="wrong"></div>
+          </div>
+        </header>
+
+        <section className="game__screen">
+          <h2 className="game__title">Выберите инди-рок треки</h2>
+          <Formik
+            initialValues={{answer: []}}
+            onSubmit={({answer}) => onSetAnswerClick(answer)}
+          >
+            {({handleChange}) => (
+              <Form className="game__tracks">
+                {answers.map(({genre, src, id}, index) => (
+                  <div className="track" key={id}>
+                    <AudioPlayer
+                      src={src}
+                      isPlaying={index === activePlayer}
+                      testidIndex={index}
+                      onPlayButtonClick={this.playButtonClickHandler(index)}
+                    />
+                    <div className="game__answer">
+                      <input
+                        className="game__input visually-hidden"
+                        type="checkbox"
+                        name="answer"
+                        value={genre}
+                        id={id}
+                        onChange={handleChange}
+                      />
+                      <label className="game__check" htmlFor={id}>Отметить</label>
+                    </div>
+                  </div>
+                ))}
+                <button
+                  className="game__submit button"
+                  data-testid="submit-btn"
+                  type="submit"
+                >
+                    Ответить
+                </button>
+              </Form>
+            )}
+          </Formik>
+        </section>
+      </section>
+    );
+  }
+}
 
 export default GameGenre;

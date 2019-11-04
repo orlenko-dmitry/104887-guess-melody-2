@@ -19,8 +19,8 @@ class App extends Component {
   static propTypes = {
     questions: arrayOf(shape({})).isRequired,
     gameSettings: shape({
-      gameTime: number,
-      maxMistakes: number,
+      gameTime: number.isRequired,
+      maxMistakes: number.isRequired,
     }).isRequired,
   }
 

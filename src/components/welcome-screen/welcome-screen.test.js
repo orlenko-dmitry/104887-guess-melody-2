@@ -1,16 +1,16 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import {render} from '@testing-library/react';
 
 import WelcomeScreen from './welcome-screen.jsx';
 
 it(`WelcomeScreen renders correctly`, () => {
-  const tree = renderer
-    .create(
-        <WelcomeScreen
-          minutes={7}
-          mistakesNumber={4}
-          onNextScreenClick={() => {}}
-        />
-    ).toJSON();
-  expect(tree).toMatchSnapshot();
+  const {container} = render(
+      <WelcomeScreen
+        minutes={7}
+        mistakesNumber={4}
+        onNextScreenClick={() => {}}
+      />
+  );
+
+  expect(container.firstChild).toMatchSnapshot();
 });
