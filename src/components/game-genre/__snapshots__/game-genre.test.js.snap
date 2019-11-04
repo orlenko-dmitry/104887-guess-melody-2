@@ -86,7 +86,7 @@ exports[`GameGenre renders correctly 1`] = `
       >
         <button
           class="track__button track__button--play"
-          data-testid="play-btn"
+          data-testid="play-btn-0"
           disabled=""
           type="button"
         />
@@ -120,7 +120,7 @@ exports[`GameGenre renders correctly 1`] = `
       >
         <button
           class="track__button track__button--play"
-          data-testid="play-btn"
+          data-testid="play-btn-1"
           disabled=""
           type="button"
         />
@@ -154,7 +154,7 @@ exports[`GameGenre renders correctly 1`] = `
       >
         <button
           class="track__button track__button--play"
-          data-testid="play-btn"
+          data-testid="play-btn-2"
           disabled=""
           type="button"
         />
@@ -188,7 +188,7 @@ exports[`GameGenre renders correctly 1`] = `
       >
         <button
           class="track__button track__button--play"
-          data-testid="play-btn"
+          data-testid="play-btn-3"
           disabled=""
           type="button"
         />

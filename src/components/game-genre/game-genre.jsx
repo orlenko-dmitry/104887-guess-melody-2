@@ -85,6 +85,7 @@ class GameGenre extends PureComponent {
                     <AudioPlayer
                       src={src}
                       isPlaying={index === activePlayer}
+                      testidIndex={index}
                       onPlayButtonClick={this.playButtonClickHandler(index)}
                     />
                     <div className="game__answer">

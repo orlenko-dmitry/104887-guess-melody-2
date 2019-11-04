@@ -1,12 +1,22 @@
 /* eslint-disable no-invalid-this */
 import React, {Fragment, PureComponent} from 'react';
-import {string, bool, func} from 'prop-types';
+import {
+  string,
+  bool,
+  func,
+  number,
+} from 'prop-types';
 
 class AudioPlayer extends PureComponent {
-  static propTypes ={
+  static propTypes = {
     src: string.isRequired,
     isPlaying: bool.isRequired,
+    testidIndex: number,
     onPlayButtonClick: func.isRequired,
+  }
+
+  static defaultProps = {
+    testidIndex: 0,
   }
 
   static getDerivedStateFromProps(nextProps) {
@@ -75,13 +85,14 @@ class AudioPlayer extends PureComponent {
 
   render() {
     const {isLoading, isPlaying} = this.state;
+    const {testidIndex} = this.props;
 
     return (
       <Fragment>
         <button
           className={`track__button track__button--${isPlaying ? `pause` : `play`}`}
           type="button"
-          data-testid="play-btn"
+          data-testid={`play-btn-${testidIndex}`}
           disabled={isLoading}
           onClick={this.playButtonClickHandler}
         ></button>

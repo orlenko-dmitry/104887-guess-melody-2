@@ -14,6 +14,9 @@ describe(`Test for GameGenre`, () => {
         />
     );
     const submitBtn = getByTestId(`submit-btn`);
+    jest
+      .spyOn(window.HTMLMediaElement.prototype, `pause`)
+      .mockImplementation(() => {});
 
     fireEvent.click(submitBtn);
 

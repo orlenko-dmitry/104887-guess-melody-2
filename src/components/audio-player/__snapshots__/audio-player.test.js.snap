@@ -4,7 +4,7 @@ exports[`AudioPlayer renders correctly 1`] = `
 <div>
   <button
     class="track__button track__button--play"
-    data-testid="play-btn"
+    data-testid="play-btn-0"
     disabled=""
     type="button"
   />

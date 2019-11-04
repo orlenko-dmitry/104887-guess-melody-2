@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import {render, fireEvent, wait} from '@testing-library/react';
 
@@ -16,7 +15,7 @@ it(`get pause and stop on play button`, () => {
         onPlayButtonClick={clickHandler}
       />
   );
-  const playBtn = getByTestId(`play-btn`);
+  const playBtn = getByTestId(`play-btn-0`);
 
   expect(playBtn.classList.contains(`track__button--play`)).toBeTruthy();
 

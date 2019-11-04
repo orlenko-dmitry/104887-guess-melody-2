@@ -12,6 +12,9 @@ const {getByTestId} = render(
     />
 );
 const artist = getByTestId(`artist-0`);
+jest
+  .spyOn(window.HTMLMediaElement.prototype, `pause`)
+  .mockImplementation(() => {});
 
 fireEvent.click(artist);
 
