@@ -1,6 +1,7 @@
 /* eslint-disable no-invalid-this */
 import React, {Component} from 'react';
-import {arrayOf, shape, number} from 'prop-types';
+import {connect} from 'react-redux';
+import {arrayOf, shape, number, func} from 'prop-types';
 import {
   If,
   Then,
@@ -14,6 +15,7 @@ import WelcomeScreen from '../welcome-screen/welcome-screen.jsx';
 import GameArtist from '../game-artist/game-artist.jsx';
 import GameGenre from '../game-genre/game-genre.jsx';
 import {QUESTION_TYPE} from '../../consts/index.js';
+import actions from '../../actions.js';
 
 class App extends Component {
   static propTypes = {
@@ -22,21 +24,20 @@ class App extends Component {
       gameTime: number.isRequired,
       maxMistakes: number.isRequired,
     }).isRequired,
-  }
-
-  state = {
-    currentQuestion: -1,
+    step: number.isRequired,
+    mistakes: number.isRequired,
+    incrementStep: func.isRequired,
+    incrementMistakes: func.isRequired,
   }
 
   nextScreenHandler = () => {
-    const {questions} = this.props;
-    const {currentQuestion} = this.state;
+    const {
+      questions,
+      step,
+      incrementStep,
+    } = this.props;
 
-    if (currentQuestion === questions.length - 1) {
-      this.setState({currentQuestion: -1});
-    } else {
-      this.setState((prevState) => ({currentQuestion: prevState.currentQuestion + 1}));
-    }
+    incrementStep({step, questionsQuantity: questions.length});
   }
 
   getAnswerHandler = (answer) => {
@@ -45,14 +46,17 @@ class App extends Component {
   }
 
   render() {
-    const {gameSettings: {gameTime, maxMistakes}, questions} = this.props;
-    const {currentQuestion} = this.state;
+    const {
+      gameSettings: {gameTime, maxMistakes},
+      questions,
+      step,
+    } = this.props;
     const gameArtisDataIndex = questions.map((question) => question.type).indexOf(QUESTION_TYPE.ARTIST);
     const gameGenreDataIndex = questions.map((question) => question.type).indexOf(QUESTION_TYPE.GENRE);
-    const caseCondition = currentQuestion === -1 ? `` : questions[currentQuestion].type;
+    const caseCondition = step === -1 ? `` : questions[step].type;
 
     return (
-      <If condition={currentQuestion === -1}>
+      <If condition={step === -1}>
         <Then>
           <WelcomeScreen
             minutes={gameTime}
@@ -84,4 +88,14 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = ({step, mistakes}) => ({step, mistakes});
+
+const mapDispatchtoProps = (dispatch) => ({
+  incrementMistakes: () => dispatch(actions.incrementMistakes()),
+  incrementStep: (payload) => dispatch(actions.incrementStep(payload)),
+
+});
+
+export {App};
+
+export default connect(mapStateToProps, mapDispatchtoProps)(App);

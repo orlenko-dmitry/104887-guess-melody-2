@@ -1,5 +1,3 @@
-import {createActions} from 'redux-actions';
-
 import {QUESTION_TYPE} from './consts/index.js';
 
 import {
@@ -16,8 +14,8 @@ const isArtistGenreCorrect = (userAnswer, question) => {
   return userAnswer.every((element) => element === question.genre);
 };
 
-export default createActions({
-  [INCRENENT_MISTAKES]: (userAnswer, question, mistakes, maxMistakes) => {
+export default ({
+  incrementMistakes: (userAnswer, question, mistakes, maxMistakes) => {
     let answerIsCorrect;
 
     switch (question.type) {
@@ -40,5 +38,16 @@ export default createActions({
       payload: answerIsCorrect ? 0 : 1,
     };
   },
-  [INCREMENT_STEP]: () => {},
+
+  incrementStep: ({step, questionsQuantity}) => {
+    if (step >= questionsQuantity - 1) {
+      return {
+        type: RESET_GAME,
+      };
+    }
+    return {
+      type: INCREMENT_STEP,
+      payload: 1,
+    };
+  },
 });
