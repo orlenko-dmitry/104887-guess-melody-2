@@ -11,6 +11,7 @@ import {
 import {Formik, Form} from 'formik';
 
 import AudioPlayer from '../audio-player/audio-player.jsx';
+import GameMistakes from '../game-mistakes/game-mistakes.jsx';
 
 class GameGenre extends PureComponent {
   static propTypes = {
@@ -23,6 +24,7 @@ class GameGenre extends PureComponent {
         genre: string.isRequired,
       }))
     }).isRequired,
+    mistakes: number.isRequired,
     onSetAnswerClick: func.isRequired,
   }
 
@@ -38,7 +40,12 @@ class GameGenre extends PureComponent {
   }
 
   render() {
-    const {gameData: {answers}, onSetAnswerClick} = this.props;
+    const {
+      gameData,
+      gameData: {answers},
+      mistakes,
+      onSetAnswerClick
+    } = this.props;
     const {activePlayer} = this.state;
 
     return (
@@ -65,18 +72,14 @@ class GameGenre extends PureComponent {
             <span className="timer__secs">00</span>
           </div>
 
-          <div className="game__mistakes">
-            <div className="wrong"></div>
-            <div className="wrong"></div>
-            <div className="wrong"></div>
-          </div>
+          <GameMistakes mistakes={mistakes} />
         </header>
 
         <section className="game__screen">
           <h2 className="game__title">Выберите инди-рок треки</h2>
           <Formik
             initialValues={{answer: []}}
-            onSubmit={({answer}) => onSetAnswerClick(answer)}
+            onSubmit={({answer}) => onSetAnswerClick({answer, question: {...gameData}})}
           >
             {({handleChange}) => (
               <Form className="game__tracks">

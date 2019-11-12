@@ -40,9 +40,20 @@ class App extends Component {
     incrementStep({step, questionsQuantity: questions.length});
   }
 
-  getAnswerHandler = (answer) => {
+  getAnswerHandler = ({answer, question}) => {
+    const {
+      gameSettings: {maxMistakes},
+      incrementMistakes,
+      mistakes,
+    } = this.props;
+
+    incrementMistakes({
+      userAnswer: answer,
+      question,
+      mistakes,
+      maxMistakes,
+    });
     this.nextScreenHandler();
-    return answer;
   }
 
   render() {
@@ -50,6 +61,7 @@ class App extends Component {
       gameSettings: {gameTime, maxMistakes},
       questions,
       step,
+      mistakes,
     } = this.props;
     const gameArtisDataIndex = questions.map((question) => question.type).indexOf(QUESTION_TYPE.ARTIST);
     const gameGenreDataIndex = questions.map((question) => question.type).indexOf(QUESTION_TYPE.GENRE);
@@ -69,12 +81,14 @@ class App extends Component {
             <Case condition={caseCondition === QUESTION_TYPE.ARTIST}>
               <GameArtist
                 gameData={questions[gameArtisDataIndex]}
+                mistakes={mistakes}
                 onSetAnswerClick={this.getAnswerHandler}
               />
             </Case>
             <Case condition={caseCondition === QUESTION_TYPE.GENRE}>
               <GameGenre
                 gameData={questions[gameGenreDataIndex]}
+                mistakes={mistakes}
                 onSetAnswerClick={this.getAnswerHandler}
               />
             </Case>
@@ -91,7 +105,7 @@ class App extends Component {
 const mapStateToProps = ({step, mistakes}) => ({step, mistakes});
 
 const mapDispatchtoProps = (dispatch) => ({
-  incrementMistakes: () => dispatch(actions.incrementMistakes()),
+  incrementMistakes: (payload) => dispatch(actions.incrementMistakes(payload)),
   incrementStep: (payload) => dispatch(actions.incrementStep(payload)),
 
 });

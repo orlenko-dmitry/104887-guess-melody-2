@@ -11,13 +11,13 @@ const isArtistAnswerCorrect = (userAnswer, question) => {
 };
 
 const isArtistGenreCorrect = (userAnswer, question) => {
-  return userAnswer.every((element) => element === question.genre);
+  return userAnswer.every((item) => item === question.genre) &&
+  question.answers.filter((item) => item.genre === question.genre).length === userAnswer.length;
 };
 
 export default ({
-  incrementMistakes: (userAnswer, question, mistakes, maxMistakes) => {
+  incrementMistakes: ({userAnswer, question, mistakes, maxMistakes}) => {
     let answerIsCorrect;
-
     switch (question.type) {
       case (QUESTION_TYPE.ARTIST):
         answerIsCorrect = isArtistAnswerCorrect(userAnswer, question);
