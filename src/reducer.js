@@ -1,6 +1,7 @@
 import {
   INCREASE_MISTAKES,
-  NEXT_QUESTION,
+  INCREMENT_STEP,
+  RESET_GAME,
 } from './consts/actionTypes.js';
 
 const initialState = {
@@ -8,18 +9,20 @@ const initialState = {
   currentQuestion: -1,
 };
 
-export default (state = initialState, {type}) => {
+export default (state = initialState, {payload, type}) => {
   switch (type) {
     case INCREASE_MISTAKES:
       return {
         ...state,
-        mistakes: state.mistakes + 1,
+        mistakes: state.mistakes + payload,
       };
-    case NEXT_QUESTION:
+    case INCREMENT_STEP:
       return {
         ...state,
         currentQuestion: state.currentQuestion + 1,
       };
+    case RESET_GAME:
+      return initialState;
     default: return state;
   }
 };
