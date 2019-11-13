@@ -4,6 +4,7 @@ import {
   INCRENENT_MISTAKES,
   INCREMENT_STEP,
   RESET_GAME,
+  INCREMENT_TIME,
 } from './consts/actionTypes.js';
 
 const isArtistAnswerCorrect = (userAnswer, question) => {
@@ -50,4 +51,17 @@ export default ({
       payload: 1,
     };
   },
+
+  incrementTime: () => {
+    return {
+      type: INCREMENT_TIME,
+      payload: 1,
+    };
+  },
+
+  resetGame: () => {
+    return {
+      type: RESET_GAME,
+    };
+  }
 });

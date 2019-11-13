@@ -1,5 +1,5 @@
 const gameSettings = {
-  "gameTime": 7,
+  "gameTime": 5,
   "maxMistakes": 3,
 };
 

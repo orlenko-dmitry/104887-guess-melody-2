@@ -4,7 +4,7 @@ import {number, func} from 'prop-types';
 const WelcomeScreen = ({
   minutes,
   mistakesNumber,
-  onNextScreenClick,
+  onStartGameClick,
 }) => (
   <section className="welcome">
     <div className="welcome__logo">
@@ -13,7 +13,7 @@ const WelcomeScreen = ({
     <button
       className="welcome__button"
       data-testid="start-game-btn"
-      onClick={onNextScreenClick}
+      onClick={onStartGameClick}
     >
       <span className="visually-hidden">Начать игру</span>
     </button>
@@ -30,7 +30,7 @@ const WelcomeScreen = ({
 WelcomeScreen.propTypes = {
   minutes: number.isRequired,
   mistakesNumber: number.isRequired,
-  onNextScreenClick: func.isRequired,
+  onStartGameClick: func.isRequired,
 };
 
 export default WelcomeScreen;

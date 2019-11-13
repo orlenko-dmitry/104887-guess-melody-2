@@ -45,9 +45,10 @@ class GameGenre extends PureComponent {
       gameData,
       gameData: {answers},
       mistakes,
-      onSetAnswerClick
+      onSetAnswerClick,
     } = this.props;
     const {activePlayer} = this.state;
+
 
     return (
       <section className="game game--genre">

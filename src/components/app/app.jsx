@@ -1,5 +1,5 @@
 /* eslint-disable no-invalid-this */
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {arrayOf, shape, number, func} from 'prop-types';
 import {
@@ -17,7 +17,7 @@ import GameGenre from '../game-genre/game-genre.jsx';
 import {QUESTION_TYPE} from '../../consts/index.js';
 import actions from '../../actions.js';
 
-class App extends Component {
+class App extends PureComponent {
   static propTypes = {
     questions: arrayOf(shape({})).isRequired,
     gameSettings: shape({
@@ -26,8 +26,26 @@ class App extends Component {
     }).isRequired,
     step: number.isRequired,
     mistakes: number.isRequired,
+    currentTime: number.isRequired,
     incrementStep: func.isRequired,
     incrementMistakes: func.isRequired,
+    incrementTime: func.isRequired,
+    resetGame: func.isRequired,
+  }
+
+  timerId;
+
+  componentDidUpdate() {
+    const {
+      currentTime,
+      gameSettings: {gameTime},
+      resetGame,
+    } = this.props;
+
+    if (currentTime >= gameTime) {
+      clearInterval(this.timerId);
+      resetGame();
+    }
   }
 
   nextScreenHandler = () => {
@@ -56,6 +74,17 @@ class App extends Component {
     this.nextScreenHandler();
   }
 
+  incrementTimeHandler = () => {
+    const {incrementTime} = this.props;
+
+    this.timerId = setInterval(() => incrementTime(), 1000);
+  };
+
+  startGameHandler = () => {
+    this.incrementTimeHandler();
+    this.nextScreenHandler();
+  };
+
   render() {
     const {
       gameSettings: {gameTime, maxMistakes},
@@ -71,9 +100,9 @@ class App extends Component {
       <If condition={step === -1}>
         <Then>
           <WelcomeScreen
-            minutes={gameTime}
+            minutes={gameTime / 60}
             mistakesNumber={maxMistakes}
-            onNextScreenClick={this.nextScreenHandler}
+            onStartGameClick={this.startGameHandler}
           />
         </Then>
         <Else>
@@ -102,12 +131,13 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({step, mistakes}) => ({step, mistakes});
+const mapStateToProps = ({step, mistakes, currentTime}) => ({step, mistakes, currentTime});
 
 const mapDispatchtoProps = (dispatch) => ({
   incrementMistakes: (payload) => dispatch(actions.incrementMistakes(payload)),
   incrementStep: (payload) => dispatch(actions.incrementStep(payload)),
-
+  incrementTime: (payload) => dispatch(actions.incrementTime(payload)),
+  resetGame: () => dispatch(actions.resetGame()),
 });
 
 export {App};
