@@ -91,6 +91,7 @@ class App extends PureComponent {
       questions,
       step,
       mistakes,
+      currentTime,
     } = this.props;
     const gameArtisDataIndex = questions.map((question) => question.type).indexOf(QUESTION_TYPE.ARTIST);
     const gameGenreDataIndex = questions.map((question) => question.type).indexOf(QUESTION_TYPE.GENRE);
@@ -111,6 +112,8 @@ class App extends PureComponent {
               <GameArtist
                 gameData={questions[gameArtisDataIndex]}
                 mistakes={mistakes}
+                gameTime={gameTime}
+                currentTime={currentTime}
                 onSetAnswerClick={this.getAnswerHandler}
               />
             </Case>
@@ -118,6 +121,8 @@ class App extends PureComponent {
               <GameGenre
                 gameData={questions[gameGenreDataIndex]}
                 mistakes={mistakes}
+                gameTime={gameTime}
+                currentTime={currentTime}
                 onSetAnswerClick={this.getAnswerHandler}
               />
             </Case>

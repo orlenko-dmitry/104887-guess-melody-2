@@ -28,6 +28,8 @@ class GameArtist extends Component {
       }))
     }).isRequired,
     mistakes: number.isRequired,
+    gameTime: number.isRequired,
+    currentTime: number.isRequired,
     onSetAnswerClick: func.isRequired,
   }
 
@@ -47,6 +49,8 @@ class GameArtist extends Component {
       },
       gameData,
       mistakes,
+      gameTime,
+      currentTime,
       onSetAnswerClick,
     } = this.props;
     const {isPlaying} = this.state;
@@ -69,7 +73,7 @@ class GameArtist extends Component {
             />
           </svg>
 
-          <GameTimer />
+          <GameTimer gameTime={gameTime} currentTime={currentTime} />
 
           <GameMistakes mistakes={mistakes} />
         </header>

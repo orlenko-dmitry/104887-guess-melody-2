@@ -26,6 +26,8 @@ class GameGenre extends PureComponent {
       }))
     }).isRequired,
     mistakes: number.isRequired,
+    gameTime: number.isRequired,
+    currentTime: number.isRequired,
     onSetAnswerClick: func.isRequired,
   }
 
@@ -45,6 +47,8 @@ class GameGenre extends PureComponent {
       gameData,
       gameData: {answers},
       mistakes,
+      gameTime,
+      currentTime,
       onSetAnswerClick,
     } = this.props;
     const {activePlayer} = this.state;
@@ -68,7 +72,7 @@ class GameGenre extends PureComponent {
             />
           </svg>
 
-          <GameTimer />
+          <GameTimer gameTime={gameTime} currentTime={currentTime} />
 
           <GameMistakes mistakes={mistakes} />
         </header>
