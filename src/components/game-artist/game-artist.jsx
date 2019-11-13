@@ -11,6 +11,7 @@ import {
 
 import AudioPlayer from '../audio-player/audio-player.jsx';
 import GameMistakes from '../game-mistakes/game-mistakes.jsx';
+import GameTimer from '../game-timer/game-timer.jsx';
 
 class GameArtist extends Component {
   static propTypes = {
@@ -26,6 +27,7 @@ class GameArtist extends Component {
         artist: string.isRequired,
       }))
     }).isRequired,
+    mistakes: number.isRequired,
     onSetAnswerClick: func.isRequired,
   }
 
@@ -67,11 +69,7 @@ class GameArtist extends Component {
             />
           </svg>
 
-          <div className="timer__value" xmlns="http://www.w3.org/1999/xhtml">
-            <span className="timer__mins">05</span>
-            <span className="timer__dots">:</span>
-            <span className="timer__secs">00</span>
-          </div>
+          <GameTimer />
 
           <GameMistakes mistakes={mistakes} />
         </header>
