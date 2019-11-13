@@ -8,6 +8,9 @@ it(`GameArtist renders correctly`, () => {
   const {container} = render(
       <GameArtist
         gameData={questions[0]}
+        mistakes={0}
+        gameTime={300}
+        currentTime={0}
         onSetAnswerClick={() => {}}
       />,
   );

@@ -6,9 +6,9 @@ import WelcomeScreen from './welcome-screen.jsx';
 it(`WelcomeScreen renders correctly`, () => {
   const {container} = render(
       <WelcomeScreen
-        minutes={7}
-        mistakesNumber={4}
-        onNextScreenClick={() => {}}
+        minutes={0}
+        mistakesNumber={0}
+        onStartGameClick={() => {}}
       />
   );
 

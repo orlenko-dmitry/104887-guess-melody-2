@@ -4,11 +4,14 @@ import {render, fireEvent} from '@testing-library/react';
 import GameArtist from './game-artist.jsx';
 import questions from '../../mocks/questions.js';
 
-const onSetAnswerClick = jest.fn();
+const clickHandler = jest.fn();
 const {getByTestId} = render(
     <GameArtist
       gameData={questions[0]}
-      onSetAnswerClick={onSetAnswerClick}
+      mistakes={0}
+      gameTime={300}
+      currentTime={0}
+      onSetAnswerClick={clickHandler}
     />
 );
 const artist = getByTestId(`artist-0`);
@@ -20,9 +23,9 @@ fireEvent.click(artist);
 
 describe(`Tests for GameArtist`, () => {
   it(`onSetAnswerClick have been called 1 time`, () => {
-    expect(onSetAnswerClick).toHaveBeenCalledTimes(1);
+    expect(clickHandler).toHaveBeenCalledTimes(1);
   });
-  it(`onSetAnswerClick calls its callback with a string`, () => {
-    expect(onSetAnswerClick).toBeCalledWith(expect.any(String));
+  it(`onSetAnswerClick calls its callback with an object`, () => {
+    expect(clickHandler).toBeCalledWith(expect.any(Object));
   });
 });

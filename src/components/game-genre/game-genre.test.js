@@ -8,6 +8,9 @@ it(`GameGenre renders correctly`, () => {
   const {container} = render(
       <GameGenre
         gameData={questions[1]}
+        mistakes={0}
+        gameTime={300}
+        currentTime={0}
         onSetAnswerClick={() => {}}
       />
   );
