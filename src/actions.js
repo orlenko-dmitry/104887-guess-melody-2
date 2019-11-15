@@ -1,17 +1,18 @@
+/* eslint-disable no-console */
 import {QUESTION_TYPE} from './consts/index.js';
 
 import {
-  INCRENENT_MISTAKES,
+  INCREMENT_MISTAKES,
   INCREMENT_STEP,
   RESET_GAME,
   INCREMENT_TIME,
 } from './consts/actionTypes.js';
 
-const isArtistAnswerCorrect = (userAnswer, question) => {
+export const isArtistAnswerCorrect = ({userAnswer, question}) => {
   return userAnswer === question.song.artist;
 };
 
-const isArtistGenreCorrect = (userAnswer, question) => {
+export const isGenreAnswerCorrect = ({userAnswer, question}) => {
   return userAnswer.every((item) => item === question.genre) &&
   question.answers.filter((item) => item.genre === question.genre).length === userAnswer.length;
 };
@@ -21,34 +22,34 @@ export default ({
     let answerIsCorrect;
     switch (question.type) {
       case (QUESTION_TYPE.ARTIST):
-        answerIsCorrect = isArtistAnswerCorrect(userAnswer, question);
+        answerIsCorrect = isArtistAnswerCorrect({userAnswer, question});
         break;
       case (QUESTION_TYPE.GENRE):
-        answerIsCorrect = isArtistGenreCorrect(userAnswer, question);
+        answerIsCorrect = isGenreAnswerCorrect({userAnswer, question});
         break;
     }
 
-    if (!answerIsCorrect && mistakes + 1 >= maxMistakes) {
+    if (!answerIsCorrect && mistakes + 1 === maxMistakes) {
       return {
         type: RESET_GAME,
       };
     }
 
     return {
-      type: INCRENENT_MISTAKES,
+      type: INCREMENT_MISTAKES,
       payload: answerIsCorrect ? 0 : 1,
     };
   },
 
   incrementStep: ({step, questionsQuantity}) => {
-    if (step >= questionsQuantity - 1) {
+    if (step < questionsQuantity) {
       return {
-        type: RESET_GAME,
+        type: INCREMENT_STEP,
+        payload: 1,
       };
     }
     return {
-      type: INCREMENT_STEP,
-      payload: 1,
+      type: RESET_GAME,
     };
   },
 

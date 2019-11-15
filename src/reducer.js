@@ -1,5 +1,5 @@
 import {
-  INCRENENT_MISTAKES,
+  INCREMENT_MISTAKES,
   INCREMENT_STEP,
   INCREMENT_TIME,
   RESET_GAME,
@@ -13,7 +13,7 @@ const initialState = {
 
 export default (state = initialState, {payload, type}) => {
   switch (type) {
-    case INCRENENT_MISTAKES:
+    case INCREMENT_MISTAKES:
       return {
         ...state,
         mistakes: state.mistakes + payload,
