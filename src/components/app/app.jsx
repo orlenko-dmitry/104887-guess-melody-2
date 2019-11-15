@@ -14,16 +14,14 @@ import {
 import WelcomeScreen from '../welcome-screen/welcome-screen.jsx';
 import GameArtist from '../game-artist/game-artist.jsx';
 import GameGenre from '../game-genre/game-genre.jsx';
-import {QUESTION_TYPE} from '../../consts/index.js';
+import {QUESTION_TYPE, GAME_SETTINGS} from '../../consts/index.js';
 import actions from '../../actions.js';
+
+const {GAME_TIME, MAX_MISTAKES} = GAME_SETTINGS;
 
 class App extends PureComponent {
   static propTypes = {
     questions: arrayOf(shape({})).isRequired,
-    gameSettings: shape({
-      gameTime: number.isRequired,
-      maxMistakes: number.isRequired,
-    }).isRequired,
     step: number.isRequired,
     mistakes: number.isRequired,
     currentTime: number.isRequired,
@@ -38,11 +36,10 @@ class App extends PureComponent {
   componentDidUpdate() {
     const {
       currentTime,
-      gameSettings: {gameTime},
       resetGame,
     } = this.props;
 
-    if (currentTime >= gameTime) {
+    if (currentTime >= GAME_TIME) {
       clearInterval(this.timerId);
       resetGame();
     }
@@ -60,7 +57,6 @@ class App extends PureComponent {
 
   getAnswerHandler = ({answer, question}) => {
     const {
-      gameSettings: {maxMistakes},
       incrementMistakes,
       mistakes,
     } = this.props;
@@ -69,7 +65,7 @@ class App extends PureComponent {
       userAnswer: answer,
       question,
       mistakes,
-      maxMistakes,
+      MAX_MISTAKES,
     });
     this.nextScreenHandler();
   }
@@ -87,7 +83,6 @@ class App extends PureComponent {
 
   render() {
     const {
-      gameSettings: {gameTime, maxMistakes},
       questions,
       step,
       mistakes,
@@ -101,8 +96,8 @@ class App extends PureComponent {
       <If condition={step === -1}>
         <Then>
           <WelcomeScreen
-            minutes={gameTime / 60}
-            mistakesNumber={maxMistakes}
+            minutes={GAME_TIME / 60}
+            mistakesNumber={MAX_MISTAKES}
             onStartGameClick={this.startGameHandler}
           />
         </Then>
@@ -112,7 +107,7 @@ class App extends PureComponent {
               <GameArtist
                 gameData={questions[gameArtisDataIndex]}
                 mistakes={mistakes}
-                gameTime={gameTime}
+                gameTime={GAME_TIME}
                 currentTime={currentTime}
                 onSetAnswerClick={this.getAnswerHandler}
               />
@@ -121,7 +116,7 @@ class App extends PureComponent {
               <GameGenre
                 gameData={questions[gameGenreDataIndex]}
                 mistakes={mistakes}
-                gameTime={gameTime}
+                gameTime={GAME_TIME}
                 currentTime={currentTime}
                 onSetAnswerClick={this.getAnswerHandler}
               />

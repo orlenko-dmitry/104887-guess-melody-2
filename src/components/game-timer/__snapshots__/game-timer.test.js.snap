@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GameTimer renders correctly 1`] = `
+<div>
+  <div
+    class="timer__value"
+    xmlns="http://www.w3.org/1999/xhtml"
+  >
+    <span
+      class="timer__mins"
+    >
+      05
+    </span>
+    <span
+      class="timer__dots"
+    >
+      :
+    </span>
+    <span
+      class="timer__secs"
+    >
+      00
+    </span>
+  </div>
+</div>
+`;
