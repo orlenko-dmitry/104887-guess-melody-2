@@ -3,8 +3,10 @@ import actions, {isArtistAnswerCorrect, isGenreAnswerCorrect} from './actions.js
 import {
   INCREMENT_STEP,
   INCREMENT_MISTAKES,
+  INCREMENT_TIME,
   RESET_GAME,
 } from './consts/actionTypes.js';
+import {GAME_SETTINGS} from './consts/index.js';
 
 describe(`Business logic is correct`, () => {
   it(`Artist answer is checked correctly`, () => {
@@ -319,81 +321,72 @@ describe(`Action creators work correctly`, () => {
 });
 
 describe(`Reducer works correctly`, () => {
+  const initialState = {
+    step: -1,
+    mistakes: 0,
+    currentTime: 0,
+  };
+
   it(`Reducer without additional parameters should return initial state`, () => {
-    expect(reducer(undefined, {})).toEqual({
-      step: -1,
-      mistakes: 0,
-      currentTime: 0,
-    });
+    expect(reducer(undefined, {})).toEqual({...initialState});
   });
 
   it(`Reducer should increment current step by a given value`, () => {
-    expect(reducer({
-      step: -1,
-      mistakes: 0,
-      currentTime: 0,
-    }, {
+    expect(reducer(undefined, {
       type: INCREMENT_STEP,
       payload: 1,
     })).toEqual({
+      ...initialState,
       step: 0,
-      mistakes: 0,
-      currentTime: 0,
     });
 
-    expect(reducer({
-      step: -1,
-      mistakes: 0,
-      currentTime: 0,
-    }, {
+    expect(reducer(undefined, {
       type: INCREMENT_STEP,
       payload: 0,
-    })).toEqual({
-      step: -1,
-      mistakes: 0,
-      currentTime: 0,
-    });
+    })).toEqual({...initialState});
   });
 
   it(`Reducer should increment number of mistakes by a given value`, () => {
-    expect(reducer({
-      step: -1,
-      mistakes: 0,
-      currentTime: 0,
-    }, {
+    expect(reducer(undefined, {
       type: INCREMENT_MISTAKES,
       payload: 1,
     })).toEqual({
-      step: -1,
+      ...initialState,
       mistakes: 1,
-      currentTime: 0,
     });
 
-    expect(reducer({
-      step: -1,
-      mistakes: 0,
-      currentTime: 0,
-    }, {
+    expect(reducer(undefined, {
       type: INCREMENT_MISTAKES,
       payload: 0,
+    })).toEqual({...initialState});
+  });
+
+  it(`Reducer should increment currentTime by a given value`, () => {
+    expect(reducer(undefined, {
+      type: INCREMENT_TIME,
+      payload: 1,
     })).toEqual({
-      step: -1,
-      mistakes: 0,
-      currentTime: 0,
+      ...initialState,
+      currentTime: 1,
     });
+  });
+
+  it(`Reducer should reset application state by a given value`, () => {
+    expect(reducer({
+      ...initialState,
+      mistakes: GAME_SETTINGS.GAME_TIME,
+    }, {
+      type: RESET_GAME,
+    })).toEqual({...initialState});
   });
 
   it(`Reducer should correctly reset application state`, () => {
     expect(reducer({
       step: 1000000,
       mistakes: 12309,
-      currentTime: 0,
+      currentTime: 500,
     }, {
       type: RESET_GAME,
-    })).toEqual({
-      step: -1,
-      mistakes: 0,
-      currentTime: 0,
-    });
+    })).toEqual({...initialState});
   });
 });

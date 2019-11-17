@@ -39,7 +39,7 @@ class App extends PureComponent {
       resetGame,
     } = this.props;
 
-    if (currentTime >= GAME_TIME) {
+    if (currentTime === GAME_TIME) {
       clearInterval(this.timerId);
       resetGame();
     }
