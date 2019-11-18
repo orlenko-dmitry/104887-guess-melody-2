@@ -11,6 +11,8 @@ import {
 import {Formik, Form} from 'formik';
 
 import AudioPlayer from '../audio-player/audio-player.jsx';
+import GameMistakes from '../game-mistakes/game-mistakes.jsx';
+import GameTimer from '../game-timer/game-timer.jsx';
 
 class GameGenre extends PureComponent {
   static propTypes = {
@@ -23,6 +25,9 @@ class GameGenre extends PureComponent {
         genre: string.isRequired,
       }))
     }).isRequired,
+    mistakes: number.isRequired,
+    gameTime: number.isRequired,
+    currentTime: number.isRequired,
     onSetAnswerClick: func.isRequired,
   }
 
@@ -38,8 +43,16 @@ class GameGenre extends PureComponent {
   }
 
   render() {
-    const {gameData: {answers}, onSetAnswerClick} = this.props;
+    const {
+      gameData,
+      gameData: {answers},
+      mistakes,
+      gameTime,
+      currentTime,
+      onSetAnswerClick,
+    } = this.props;
     const {activePlayer} = this.state;
+
 
     return (
       <section className="game game--genre">
@@ -59,24 +72,16 @@ class GameGenre extends PureComponent {
             />
           </svg>
 
-          <div className="timer__value" xmlns="http://www.w3.org/1999/xhtml">
-            <span className="timer__mins">05</span>
-            <span className="timer__dots">:</span>
-            <span className="timer__secs">00</span>
-          </div>
+          <GameTimer gameTime={gameTime} currentTime={currentTime} />
 
-          <div className="game__mistakes">
-            <div className="wrong"></div>
-            <div className="wrong"></div>
-            <div className="wrong"></div>
-          </div>
+          <GameMistakes mistakes={mistakes} />
         </header>
 
         <section className="game__screen">
           <h2 className="game__title">Выберите инди-рок треки</h2>
           <Formik
             initialValues={{answer: []}}
-            onSubmit={({answer}) => onSetAnswerClick(answer)}
+            onSubmit={({answer}) => onSetAnswerClick({answer, question: {...gameData}})}
           >
             {({handleChange}) => (
               <Form className="game__tracks">

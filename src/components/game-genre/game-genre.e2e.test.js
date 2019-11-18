@@ -10,6 +10,9 @@ describe(`Test for GameGenre`, () => {
     const {getByTestId} = render(
         <GameGenre
           gameData={questions[1]}
+          mistakes={0}
+          gameTime={300}
+          currentTime={0}
           onSetAnswerClick={clickHandler}
         />
     );
@@ -22,11 +25,14 @@ describe(`Test for GameGenre`, () => {
 
     wait(() => expect(clickHandler).toHaveBeenCalledTimes(1));
   });
-  it(`onSetAnswerClick calls its callback with an array`, () => {
+  it(`onSetAnswerClick calls its callback with an object`, () => {
     const clickHandler = jest.fn();
     const {getByTestId} = render(
         <GameGenre
           gameData={questions[1]}
+          mistakes={0}
+          gameTime={300}
+          currentTime={0}
           onSetAnswerClick={clickHandler}
         />
     );
@@ -34,6 +40,6 @@ describe(`Test for GameGenre`, () => {
 
     fireEvent.click(submitBtn);
 
-    wait(() => expect(clickHandler).toBeCalledWith(expect.any(Array)));
+    wait(() => expect(clickHandler).toBeCalledWith(expect.any(Object)));
   });
 });

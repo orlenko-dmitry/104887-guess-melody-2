@@ -1,6 +1,7 @@
 /* eslint-disable no-invalid-this */
-import React, {Component} from 'react';
-import {arrayOf, shape, number} from 'prop-types';
+import React, {PureComponent} from 'react';
+import {connect} from 'react-redux';
+import {arrayOf, shape, number, func} from 'prop-types';
 import {
   If,
   Then,
@@ -13,51 +14,91 @@ import {
 import WelcomeScreen from '../welcome-screen/welcome-screen.jsx';
 import GameArtist from '../game-artist/game-artist.jsx';
 import GameGenre from '../game-genre/game-genre.jsx';
-import {QUESTION_TYPE} from '../../consts/index.js';
+import {QUESTION_TYPE, GAME_SETTINGS} from '../../consts/index.js';
+import actions from '../../actions.js';
 
-class App extends Component {
+const {GAME_TIME, MAX_MISTAKES} = GAME_SETTINGS;
+
+class App extends PureComponent {
   static propTypes = {
     questions: arrayOf(shape({})).isRequired,
-    gameSettings: shape({
-      gameTime: number.isRequired,
-      maxMistakes: number.isRequired,
-    }).isRequired,
+    step: number.isRequired,
+    mistakes: number.isRequired,
+    currentTime: number.isRequired,
+    incrementStep: func.isRequired,
+    incrementMistakes: func.isRequired,
+    incrementTime: func.isRequired,
+    resetGame: func.isRequired,
   }
 
-  state = {
-    currentQuestion: -1,
-  }
+  timerId;
 
-  nextScreenHandler = () => {
-    const {questions} = this.props;
-    const {currentQuestion} = this.state;
+  componentDidUpdate() {
+    const {
+      currentTime,
+      resetGame,
+    } = this.props;
 
-    if (currentQuestion === questions.length - 1) {
-      this.setState({currentQuestion: -1});
-    } else {
-      this.setState((prevState) => ({currentQuestion: prevState.currentQuestion + 1}));
+    if (currentTime === GAME_TIME) {
+      clearInterval(this.timerId);
+      resetGame();
     }
   }
 
-  getAnswerHandler = (answer) => {
-    this.nextScreenHandler();
-    return answer;
+  nextScreenHandler = () => {
+    const {
+      questions,
+      step,
+      incrementStep,
+    } = this.props;
+
+    incrementStep({step, questionsQuantity: questions.length});
   }
 
+  getAnswerHandler = ({answer, question}) => {
+    const {
+      incrementMistakes,
+      mistakes,
+    } = this.props;
+
+    incrementMistakes({
+      userAnswer: answer,
+      question,
+      mistakes,
+      MAX_MISTAKES,
+    });
+    this.nextScreenHandler();
+  }
+
+  incrementTimeHandler = () => {
+    const {incrementTime} = this.props;
+
+    this.timerId = setInterval(() => incrementTime(), 1000);
+  };
+
+  startGameHandler = () => {
+    this.incrementTimeHandler();
+    this.nextScreenHandler();
+  };
+
   render() {
-    const {gameSettings: {gameTime, maxMistakes}, questions} = this.props;
-    const {currentQuestion} = this.state;
+    const {
+      questions,
+      step,
+      mistakes,
+      currentTime,
+    } = this.props;
     const gameArtisDataIndex = questions.map((question) => question.type).indexOf(QUESTION_TYPE.ARTIST);
     const gameGenreDataIndex = questions.map((question) => question.type).indexOf(QUESTION_TYPE.GENRE);
-    const caseCondition = currentQuestion === -1 ? `` : questions[currentQuestion].type;
+    const caseCondition = step === -1 ? `` : questions[step].type;
 
     return (
-      <If condition={currentQuestion === -1}>
+      <If condition={step === -1}>
         <Then>
           <WelcomeScreen
-            minutes={gameTime}
-            mistakesNumber={maxMistakes}
-            onNextScreenClick={this.nextScreenHandler}
+            minutes={GAME_TIME / 60}
+            mistakesNumber={MAX_MISTAKES}
+            onStartGameClick={this.startGameHandler}
           />
         </Then>
         <Else>
@@ -65,12 +106,18 @@ class App extends Component {
             <Case condition={caseCondition === QUESTION_TYPE.ARTIST}>
               <GameArtist
                 gameData={questions[gameArtisDataIndex]}
+                mistakes={mistakes}
+                gameTime={GAME_TIME}
+                currentTime={currentTime}
                 onSetAnswerClick={this.getAnswerHandler}
               />
             </Case>
             <Case condition={caseCondition === QUESTION_TYPE.GENRE}>
               <GameGenre
                 gameData={questions[gameGenreDataIndex]}
+                mistakes={mistakes}
+                gameTime={GAME_TIME}
+                currentTime={currentTime}
                 onSetAnswerClick={this.getAnswerHandler}
               />
             </Case>
@@ -84,4 +131,15 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = ({step, mistakes, currentTime}) => ({step, mistakes, currentTime});
+
+const mapDispatchtoProps = (dispatch) => ({
+  incrementMistakes: (payload) => dispatch(actions.incrementMistakes(payload)),
+  incrementStep: (payload) => dispatch(actions.incrementStep(payload)),
+  incrementTime: (payload) => dispatch(actions.incrementTime(payload)),
+  resetGame: () => dispatch(actions.resetGame()),
+});
+
+export {App};
+
+export default connect(mapStateToProps, mapDispatchtoProps)(App);

@@ -57,17 +57,7 @@ exports[`GameArtist renders correctly 1`] = `
     </div>
     <div
       class="game__mistakes"
-    >
-      <div
-        class="wrong"
-      />
-      <div
-        class="wrong"
-      />
-      <div
-        class="wrong"
-      />
-    </div>
+    />
   </header>
   <section
     class="game__screen"

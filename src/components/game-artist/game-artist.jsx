@@ -10,6 +10,8 @@ import {
 } from 'prop-types';
 
 import AudioPlayer from '../audio-player/audio-player.jsx';
+import GameMistakes from '../game-mistakes/game-mistakes.jsx';
+import GameTimer from '../game-timer/game-timer.jsx';
 
 class GameArtist extends Component {
   static propTypes = {
@@ -25,6 +27,9 @@ class GameArtist extends Component {
         artist: string.isRequired,
       }))
     }).isRequired,
+    mistakes: number.isRequired,
+    gameTime: number.isRequired,
+    currentTime: number.isRequired,
     onSetAnswerClick: func.isRequired,
   }
 
@@ -42,6 +47,10 @@ class GameArtist extends Component {
         song: {src},
         answers,
       },
+      gameData,
+      mistakes,
+      gameTime,
+      currentTime,
       onSetAnswerClick,
     } = this.props;
     const {isPlaying} = this.state;
@@ -64,17 +73,9 @@ class GameArtist extends Component {
             />
           </svg>
 
-          <div className="timer__value" xmlns="http://www.w3.org/1999/xhtml">
-            <span className="timer__mins">05</span>
-            <span className="timer__dots">:</span>
-            <span className="timer__secs">00</span>
-          </div>
+          <GameTimer gameTime={gameTime} currentTime={currentTime} />
 
-          <div className="game__mistakes">
-            <div className="wrong"></div>
-            <div className="wrong"></div>
-            <div className="wrong"></div>
-          </div>
+          <GameMistakes mistakes={mistakes} />
         </header>
 
         <section className="game__screen">
@@ -95,7 +96,7 @@ class GameArtist extends Component {
                 className="artist"
                 key={id}
                 data-testid={`artist-${index}`}
-                onClick={() => onSetAnswerClick(artist)}
+                onClick={() => onSetAnswerClick({answer: artist, question: {...gameData}})}
               >
                 <input
                   className="artist__input visually-hidden"
